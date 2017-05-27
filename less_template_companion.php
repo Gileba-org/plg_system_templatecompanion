@@ -1,30 +1,21 @@
 <?php
 /**
- * @package   System Plugin - automatic Less compiler - for Joomla 2.5 and 3.x
- * @version   0.8.1 Stable
- * @author    Andreas Tasch
- * @copyright (C) 2012-2015 - Andreas Tasch and contributors
- * @license   GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
- **/
-/**
- * @package     Lessallrounder
- * @subpackage  Plugin
- * @author      Thomas Hunziker <bakual@bakual.net>
- * @copyright   (C) 2014 - Thomas Hunziker
- * @license     GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
+ * @package		System Plugin - Less Template Companion, an automatic Less compiler for developers and users
+ * @version		0.1.0-alpha.1
+ * @author		Gijs Lamon
+ * @copyright	(C) 2017 Gijs Lamon
+ * @license		GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  *
- * Loosely based on https://github.com/ndeet/plg_system_less
- **/
+ * Based on the works of Andreas Tasch (https://github.com/ndeet/plg_system_less) and Thomas Hunziker (https://github.com/Bakual/Allrounder)
+ */
 
 // no direct access
 defined('_JEXEC') or die();
 
 /**
- * Plugin checks and compiles updated .less files on page load. No need to manually compile your .less files again.
- * Less compiler lessphp; see http://leafo.net/lessphp/
- */
-/**
- * Plugin compiles .less files on template style save.
+ * Plugin checks and compiles updated .less files on page load and on template style save.
+ * Give your users the ability to set variables as template parameter and removing the need to manually compile .less files ever again.
+ *
  * JLess compiler uses lessphp; see http://leafo.net/lessphp/
  *
  * @since  1.0
