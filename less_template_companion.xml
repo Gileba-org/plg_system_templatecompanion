@@ -135,6 +135,6 @@
 		<server
 			type="extension"
 			priority="1"
-			name="at[tec] Update Server">http://www.attec.at/joomla-updates/plg_system_less_update.xml</server>
+			name="Gileba Update Server">http://www.gileba.be/updates/plg_system_less_template_companion.xml</server>
 	</updateservers>
 </extension>
