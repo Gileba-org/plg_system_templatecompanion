@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension
 	version="2.5" type="plugin" group="system" method="upgrade">
-	<name>plg_system_less_template_companion</name>
+	<name>System - Less Template Companion</name>
 	<author>Gijs Lamon</author>
 	<creationDate>2017-05-27</creationDate>
 	<copyright>(C) 2017 Gijs Lamon</copyright>
