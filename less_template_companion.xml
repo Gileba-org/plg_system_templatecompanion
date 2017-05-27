@@ -11,7 +11,7 @@
 	<version>0.1.0-alpha.1</version>
 	<description>PLG_SYSTEM_LESS_TEMPLATE_COMPATNION_XML_DESC</description>
 	<files>
-		<file plugin="less">less_template_companion.php</file>
+		<file plugin="less_template_companion">less_template_companion.php</file>
 		<folder>lessc</folder>
 	</files>
 	<languages>
