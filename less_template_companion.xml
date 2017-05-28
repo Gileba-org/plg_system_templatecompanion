@@ -14,15 +14,19 @@
 		<file plugin="less_template_companion">less_template_companion.php</file>
 		<folder>lessc</folder>
 	</files>
+	<media destination="plg_less_template_companion" folder="media">
+		<folder>js</folder>
+		<filename>index.html</filename>
+	</media>
 	<languages>
-		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.ini</language>
-		<language tag="en-GB">language/en-GB/en-GB.plg_system_less.sys.ini</language>
-		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less.ini</language>
-		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less.sys.ini</language>
-		<language tag="de-DE">language/de-DE/de-DE.plg_system_less.ini</language>
-		<language tag="de-DE">language/de-DE/de-DE.plg_system_less.sys.ini</language>
-		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_less.ini</language>
-		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_less.sys.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_less_template_companion.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_less_template_companion.sys.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less_template_companion.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less_template_companion.sys.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.plg_system_less_template_companion.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.plg_system_less_template_companion.sys.ini</language>
+		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_less_template_companion.ini</language>
+		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_less_template_companion.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
@@ -44,7 +48,7 @@
 					default="lessc-0.3.9" 
 					label="PLG_SYSTEM_LESS_FIELD_SITELESSC_LABEL"
 					description="PLG_SYSTEM_LESS_FIELD_SITELESSC_DESC"
-					directory="plugins/system/less/lessc" 
+					directory="plugins/system/less_template_companion/lessc" 
 					filter="\.php" 
 					exclude="" 
 					stripext="1"
@@ -70,7 +74,7 @@
 					default="lessc-0.3.9" 
 					label="PLG_SYSTEM_LESS_FIELD_ADMINLESSC_LABEL"
 					description="PLG_SYSTEM_LESS_FIELD_ADMINLESSC_DESC"
-					directory="plugins/system/less/lessc" 
+					directory="plugins/system/less_template_companion/lessc" 
 					filter="\.php" 
 					exclude="" 
 					stripext="1"
