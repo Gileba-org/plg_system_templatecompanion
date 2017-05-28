@@ -9,7 +9,7 @@
 	<authorEmail>info@gileba.be</authorEmail>
 	<authorUrl>www.gileba.be</authorUrl>
 	<version>0.1.0-alpha.1</version>
-	<description>PLG_SYSTEM_LESS_TEMPLATE_COMPATNION_XML_DESC</description>
+	<description>PLG_SYSTEM_LESS_TEMPLATE_COMPANION_XML_DESC</description>
 	<files>
 		<file plugin="less_template_companion">less_template_companion.php</file>
 		<folder>lessc</folder>
