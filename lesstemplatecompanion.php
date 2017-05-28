@@ -117,14 +117,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		}
 
-		// Convert the params to an object.
-		if (is_string($table->params))
-		{
-			$registry = new \Joomla\Registry\Registry;
-			$registry->loadString($table->params);
-			$table->params = $registry;
-		}
-
 		//check if .less file exists and is readable
 		if (is_readable($lessFile))
 		{
