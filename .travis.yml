@@ -19,12 +19,12 @@ script:
 - phpunit --configuration travisci-phpunit.xml --no-configuration tests
 before_deploy:
 - cd ..
-- zip -r plg_system_less_template_companion.zip plg_system_less_template_companion
+- zip -r plg_system_lesstemplatecompanion.zip plg_system_less_template_companion
   -x \*.git\* *.gitattributes* \*tests\* *travisci-phpunit.xml* *.travis.yml* *plg_system_less_template_companion_updates.xml*
 deploy:
   provider: releases
   file:
-  - plg_system_less_template_companion.zip
+  - plg_system_lesstemplatecompanion.zip
   skip_cleanup: true
   on:
     tags: true

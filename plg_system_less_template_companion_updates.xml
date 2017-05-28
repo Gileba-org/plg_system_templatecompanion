@@ -6,10 +6,10 @@
 		<element>less_template_companion</element>
 		<type>plugin</type>
 		<folder>system</folder>
-		<version>0.1.0-alpha.1</version>
+		<version>0.1.0-alpha.3</version>
 		<infourl title="Less Template Companion (Plugin)">http://www.gileba.be/</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/Gileba/ttactua_mobile/releases/download/0.1.0a1/plg_system_less_template_companion.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/Gileba/plg_system_less_template_companion/releases/download/0.1.0a3/plg_system_lesstemplatecompanion.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>
