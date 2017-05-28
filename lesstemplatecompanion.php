@@ -221,7 +221,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		// Get asset paths
 		$templateRel = 'templates/' . $doc->template . '/';
-		$templateUri = JUri::base() . $templateRel;
 
 
 		// Determine which param to use (admin/ site)
@@ -308,7 +307,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$lookups = array($cssUri, JUri::base(true) . '/' . $cssUri, JUri::base() . $cssUri);
 
 		// Loop trough all registered document stylesheets...
-		foreach ($doc->_styleSheets as $stylesSheetUri => $styleSheetInfo)
+		foreach ($doc->_styleSheets as $stylesSheetUri)
 		{
 			// ...and compare to every lookup...
 			foreach ($lookups as $lookup)
