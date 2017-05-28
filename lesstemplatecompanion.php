@@ -113,18 +113,17 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			if ((bool) $this->params->get('clientside_enable', 0))
 			{
 				$this->clientsideLess();
+				return false;
 			}
-			else
+	
+			//initialise less compiler
+			try
 			{
-				//initialse less compiler
-				try
-				{
-					$this->autoCompileLess($lessFile, $cssFile);
-				}
-				catch (Exception $e)
-				{
-					echo "lessphp error: " . $e->getMessage();
-				}
+				$this->autoCompileLess($lessFile, $cssFile);
+			}
+			catch (Exception $e)
+			{
+				$app->enqueueMessage(JText::_($e->getMessage(), 'error');;
 			}
 		}
 
@@ -221,7 +220,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		// Get asset paths
 		$templateRel = 'templates/' . $doc->template . '/';
-		$templateUri = JUri::base() . $templateRel;
 
 
 		// Determine which param to use (admin/ site)
@@ -308,7 +306,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$lookups = array($cssUri, JUri::base(true) . '/' . $cssUri, JUri::base() . $cssUri);
 
 		// Loop trough all registered document stylesheets...
-		foreach ($doc->_styleSheets as $stylesSheetUri => $styleSheetInfo)
+		foreach ($doc->_styleSheets as $stylesSheetUri)
 		{
 			// ...and compare to every lookup...
 			foreach ($lookups as $lookup)
@@ -397,89 +395,94 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		// Check if .less file exists and is readable
 		if (is_readable($lessFile))
 		{
-			$less = new JLess;
-
-			if ($table->params->get('cssCompress', 0))
-			{
-				$less->setFormatter('compressed');
-			}
-			else
-			{
-				// Joomla way
-				$formatter = new JLessFormatterJoomla;
-				$less->setFormatter($formatter);
-			}
-
-			$params_array = $table->params->toArray();
-
-			// Unset the some parameter as it breaks the compiler if it starts with a dot (.) or hash (#).
-			$unsets = array(
-						'customCssCode',
-						'textLogo',
-						'slogan',
-						'copyText',
-					);
-
-			foreach ($unsets as $unset)
-			{
-				if (array_key_exists($unset, $params_array))
-				{
-					unset($params_array[$unset]);
-				}
-			}
-
-			// Sanitising params for LESS
-			foreach ($params_array as &$value)
-			{
-				// Trim whitespaces
-				$value = trim($value);
-
-				// Adding quotes around variable so it's threaten as string if a slash is in it.
-				if (strpos($value, '/') !== false)
-				{
-					$value = '"' . $value . '"';
-				}
-
-				// Quoting empty values as they break the compiler
-				if ($value == '')
-				{
-					$value = '""';
-				}
-			}
-
-			// Adding template path to params
-			$basePath                 = ($table->client_id) ? JURI::base(true) : JURI::root(true);
-			$params_array['basePath'] = '"' . $basePath . '/"';
-
-			$less->setVariables($params_array);
-
-			$less->setImportDir(array($templatePath . '/less/'));
-			$lessString = file_get_contents($lessFile);
-
-			// Check for custom files
-			if (is_readable($templatePath . '/less/custom.less'))
-			{
-				$lessString .= file_get_contents($templatePath . '/less/custom.less');
-			}
-
-			if (is_readable($templatePath . '/css/custom.css'))
-			{
-				$lessString .= file_get_contents($templatePath . '/css/custom.css');
-			}
-
-			try
-			{
-				$cssString = $less->compile($lessString);
-			}
-			catch (Exception $e)
-			{
-				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
-			}
-
-			JFile::write($cssFile, $cssString);
-
-			$this->loadLanguage();
-			$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $cssFile), 'message');
+			$this->compileLess($table, $client, $templatePath, $lessFile, $cssFile)
 		}
+	}
+	
+	public function compileLess($table, $client, $templatePath, $lessFile, $cssFile)
+	{
+		$less = new JLess;
+
+		if ($table->params->get('cssCompress', 0))
+		{
+			$less->setFormatter('compressed');
+		}
+		else
+		{
+			// Joomla way
+			$formatter = new JLessFormatterJoomla;
+			$less->setFormatter($formatter);
+		}
+
+		$params_array = $table->params->toArray();
+
+		// Unset the some parameter as it breaks the compiler if it starts with a dot (.) or hash (#).
+		$unsets = array(
+					'customCssCode',
+					'textLogo',
+					'slogan',
+					'copyText',
+				);
+
+		foreach ($unsets as $unset)
+		{
+			if (array_key_exists($unset, $params_array))
+			{
+				unset($params_array[$unset]);
+			}
+		}
+
+		// Sanitising params for LESS
+		foreach ($params_array as &$value)
+		{
+			// Trim whitespaces
+			$value = trim($value);
+
+			// Adding quotes around variable so it's threaten as string if a slash is in it.
+			if (strpos($value, '/') !== false)
+			{
+				$value = '"' . $value . '"';
+			}
+
+			// Quoting empty values as they break the compiler
+			if ($value == '')
+			{
+				$value = '""';
+			}
+		}
+
+		// Adding template path to params
+		$basePath                 = ($table->client_id) ? JURI::base(true) : JURI::root(true);
+		$params_array['basePath'] = '"' . $basePath . '/"';
+
+		$less->setVariables($params_array);
+
+		$less->setImportDir(array($templatePath . '/less/'));
+		$lessString = file_get_contents($lessFile);
+
+		// Check for custom files
+		if (is_readable($templatePath . '/less/custom.less'))
+		{
+			$lessString .= file_get_contents($templatePath . '/less/custom.less');
+		}
+
+		if (is_readable($templatePath . '/css/custom.css'))
+		{
+			$lessString .= file_get_contents($templatePath . '/css/custom.css');
+		}
+
+		try
+		{
+			$cssString = $less->compile($lessString);
+		}
+		catch (Exception $e)
+		{
+			$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
+		}
+
+		JFile::write($cssFile, $cssString);
+
+		$this->loadLanguage();
+		$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $cssFile), 'message');
 	}
 }
