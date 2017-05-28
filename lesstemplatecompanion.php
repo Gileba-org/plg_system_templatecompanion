@@ -75,7 +75,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	{
 		//path to less file
 		$lessFile 	= '';
-		$table		= array('params'=>'');
+		$table		= $this->app->getTemplate(true);
 
 		// 0 = frontend only
 		// 1 = backend only
