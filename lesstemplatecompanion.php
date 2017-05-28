@@ -395,11 +395,11 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		// Check if .less file exists and is readable
 		if (is_readable($lessFile))
 		{
-			$this->compileLess($table, $client, $templatePath, $lessFile, $cssFile);
+			$this->compileLess($table, $templatePath, $lessFile, $cssFile);
 		}
 	}
 	
-	public function compileLess($table, $client, $templatePath, $lessFile, $cssFile)
+	public function compileLess($table, $templatePath, $lessFile, $cssFile)
 	{
 		$less = new JLess;
 
