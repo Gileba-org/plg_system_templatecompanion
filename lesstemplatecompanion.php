@@ -123,7 +123,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			}
 			catch (Exception $e)
 			{
-				$app->enqueueMessage(JText::_($e->getMessage(), 'error');;
+				$app->enqueueMessage(JText::_($e->getMessage(), 'error');
 			}
 		}
 
