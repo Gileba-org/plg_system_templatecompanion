@@ -74,12 +74,22 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	function onBeforeRender()
 	{
 		//path to less file
-		$lessFile = '';
+		$lessFile 	= '';
+		$table		= array('params'=>'');
 
 		// 0 = frontend only
 		// 1 = backend only
 		// 2 = front + backend
 		$mode = $this->params->get('mode', 0);
+
+		// Convert the template params to an object.
+		// TODO: load template params
+		if (is_string($table->params))
+		{
+			$registry = new \Joomla\Registry\Registry;
+			$registry->loadString($table->params);
+			$table->params = $registry;
+		}
 
 		//only execute frontend
 		if ($this->app->isSite() && ($mode == 0 || $mode == 2))
@@ -107,6 +117,14 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		}
 
+		// Convert the params to an object.
+		if (is_string($table->params))
+		{
+			$registry = new \Joomla\Registry\Registry;
+			$registry->loadString($table->params);
+			$table->params = $registry;
+		}
+
 		//check if .less file exists and is readable
 		if (is_readable($lessFile))
 		{
@@ -119,7 +137,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			//initialise less compiler
 			try
 			{
-				$this->autoCompileLess($lessFile, $cssFile);
+				$this->compileLess($table, $templatePath, $lessFile, $cssFile);
 			}
 			catch (Exception $e)
 			{
