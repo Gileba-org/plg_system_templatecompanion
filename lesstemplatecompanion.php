@@ -461,10 +461,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			}
 		}
 
-		// Adding template path to params
-		$basePath                 = ($table->client_id) ? JURI::base(true) : JURI::root(true);
-		$params_array['basePath'] = '"' . $basePath . '/"';
-
 		$less->setVariables($params_array);
 
 		$less->setImportDir(array($templatePath . '/less/'));
