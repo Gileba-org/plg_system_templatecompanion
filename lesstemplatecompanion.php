@@ -123,7 +123,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			}
 			catch (Exception $e)
 			{
-				$app->enqueueMessage(JText::_($e->getMessage(), 'error');
+				$app->enqueueMessage(JText::_($e->getMessage(), 'error'));
 			}
 		}
 
@@ -395,7 +395,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		// Check if .less file exists and is readable
 		if (is_readable($lessFile))
 		{
-			$this->compileLess($table, $client, $templatePath, $lessFile, $cssFile)
+			$this->compileLess($table, $client, $templatePath, $lessFile, $cssFile);
 		}
 	}
 	
