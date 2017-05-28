@@ -9,7 +9,7 @@
 	<authorEmail>info@gileba.be</authorEmail>
 	<authorUrl>www.gileba.be</authorUrl>
 	<version>0.1.0-alpha.3</version>
-	<description>PLG_SYSTEM_LESS_TEMPLATE_COMPATNION_XML_DESC</description>
+	<description>PLG_SYSTEM_LESS_TEMPLATE_COMPANION_XML_DESC</description>
 	<files>
 		<file plugin="lesstemplatecompanion">lesstemplatecompanion.php</file>
 		<folder>lessc</folder>
@@ -21,12 +21,6 @@
 	<languages>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.ini</language>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.sys.ini</language>
-		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_lesstemplatecompanion.ini</language>
-		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_lesstemplatecompanion.sys.ini</language>
-		<language tag="de-DE">language/de-DE/de-DE.plg_system_lesstemplatecompanion.ini</language>
-		<language tag="de-DE">language/de-DE/de-DE.plg_system_lesstemplatecompanion.sys.ini</language>
-		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_lesstemplatecompanion.ini</language>
-		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_lesstemplatecompanion.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
