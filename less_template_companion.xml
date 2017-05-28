@@ -11,22 +11,22 @@
 	<version>0.1.0-alpha.1</version>
 	<description>PLG_SYSTEM_LESS_TEMPLATE_COMPATNION_XML_DESC</description>
 	<files>
-		<file plugin="less_template_companion">less_template_companion.php</file>
+		<file plugin="lesstemplatecompanion">lesstemplatecompanion.php</file>
 		<folder>lessc</folder>
 	</files>
-	<media destination="plg_less_template_companion" folder="media">
+	<media destination="plg_lesstemplatecompanion" folder="media">
 		<folder>js</folder>
 		<filename>index.html</filename>
 	</media>
 	<languages>
-		<language tag="en-GB">language/en-GB/en-GB.plg_system_less_template_companion.ini</language>
-		<language tag="en-GB">language/en-GB/en-GB.plg_system_less_template_companion.sys.ini</language>
-		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less_template_companion.ini</language>
-		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_less_template_companion.sys.ini</language>
-		<language tag="de-DE">language/de-DE/de-DE.plg_system_less_template_companion.ini</language>
-		<language tag="de-DE">language/de-DE/de-DE.plg_system_less_template_companion.sys.ini</language>
-		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_less_template_companion.ini</language>
-		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_less_template_companion.sys.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.sys.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="fr-FR">language/fr-FR/fr-FR.plg_system_lesstemplatecompanion.sys.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="de-DE">language/de-DE/de-DE.plg_system_lesstemplatecompanion.sys.ini</language>
+		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="ru-RU">language/ru-RU/ru-RU.plg_system_lesstemplatecompanion.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
@@ -48,7 +48,7 @@
 					default="lessc-0.3.9" 
 					label="PLG_SYSTEM_LESS_FIELD_SITELESSC_LABEL"
 					description="PLG_SYSTEM_LESS_FIELD_SITELESSC_DESC"
-					directory="plugins/system/less_template_companion/lessc" 
+					directory="plugins/system/lesstemplatecompanion/lessc" 
 					filter="\.php" 
 					exclude="" 
 					stripext="1"
@@ -74,7 +74,7 @@
 					default="lessc-0.3.9" 
 					label="PLG_SYSTEM_LESS_FIELD_ADMINLESSC_LABEL"
 					description="PLG_SYSTEM_LESS_FIELD_ADMINLESSC_DESC"
-					directory="plugins/system/less_template_companion/lessc" 
+					directory="plugins/system/lesstemplatecompanion/lessc" 
 					filter="\.php" 
 					exclude="" 
 					stripext="1"
@@ -139,6 +139,6 @@
 		<server
 			type="extension"
 			priority="1"
-			name="Gileba Update Server">http://www.gileba.be/updates/plg_system_less_template_companion_updates.xml</server>
+			name="Gileba Update Server">http://www.gileba.be/updates/plg_system_lesstemplatecompanionupdates.xml</server>
 	</updateservers>
 </extension>
