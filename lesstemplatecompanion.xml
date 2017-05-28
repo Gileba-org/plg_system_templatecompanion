@@ -133,6 +133,6 @@
 		<server
 			type="extension"
 			priority="1"
-			name="Gileba Update Server">http://www.gileba.be/updates/plg_system_lesstemplatecompanionupdates.xml</server>
+			name="Gileba Update Server">http://www.gileba.be/updates/plg_system_lesstemplatecompanion_updates.xml</server>
 	</updateservers>
 </extension>
