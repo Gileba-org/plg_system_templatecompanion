@@ -113,18 +113,17 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			if ((bool) $this->params->get('clientside_enable', 0))
 			{
 				$this->clientsideLess();
+				return false;
 			}
-			else
+	
+			//initialise less compiler
+			try
 			{
-				//initialse less compiler
-				try
-				{
-					$this->autoCompileLess($lessFile, $cssFile);
-				}
-				catch (Exception $e)
-				{
-					$app->enqueueMessage(JText::_($e->getMessage(), 'error');;
-				}
+				$this->autoCompileLess($lessFile, $cssFile);
+			}
+			catch (Exception $e)
+			{
+				$app->enqueueMessage(JText::_($e->getMessage(), 'error');;
 			}
 		}
 
