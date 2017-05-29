@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		System Plugin - Less Template Companion, an automatic Less compiler for developers and users
- * @version		0.1.0-alpha.6
+ * @version		0.1.0-alpha.7
  * @author		Gijs Lamon
  * @copyright	(C) 2017 Gijs Lamon
  * @license		GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -26,6 +26,11 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 * @var $app
 	 */
 	protected $app;
+	protected $lessFile		= '';
+	protected $cssFile		= '';
+	protected $frontend		= false;
+	protected $backend		= false;
+	protected $templatePath	= '';
 
 	/**
 	 * override constructor to load classes as soon as possible
@@ -44,10 +49,8 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	/**
 	 * Compile .less files on change
 	 */
-	function onBeforeRender()
+	public function onBeforeRender()
 	{
-		//path to less file
-		$lessFile 	= '';
 		$table		= $this->app->getTemplate(true);
 
 		// 0 = frontend only
@@ -67,74 +70,39 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		//only execute frontend
 		if ($this->app->isSite() && ($mode == 0 || $mode == 2))
 		{
-			$templatePath = JPATH_BASE . DIRECTORY_SEPARATOR . 'templates/' . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
+			$this->templatePath = JPATH_BASE . DIRECTORY_SEPARATOR . 'templates/' . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
 
 			//entrypoint for main .less file, default is less/template.less
-			$lessFile = $templatePath . $this->params->get('lessfile', 'less/template.less');
+			$this->lessFile = $this->templatePath . $this->params->get('lessfile', 'less/template.less');
 
 			//destination .css file, default css/template.css
-			$cssFile = $templatePath . $this->params->get('cssfile', 'css/template.css');
+			$this->cssFile = $this->templatePath . $this->params->get('cssfile', 'css/template.css');
 
 		}
 
 		//execute backend
 		if ($this->app->isAdmin() && ($mode == 1 || $mode == 2))
 		{
-			$templatePath = JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'templates/' . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
+			$this->templatePath = JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'templates/' . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
 
 			//entrypoint for main .less file, default is less/template.less
-			$lessFile = $templatePath . $this->params->get('admin_lessfile', 'less/template.less');
+			$this->lessFile = $this->templatePath . $this->params->get('admin_lessfile', 'less/template.less');
 
 			//destination .css file, default css/template.css
-			$cssFile = $templatePath . $this->params->get('admin_cssfile', 'css/template.css');
+			$this->cssFile = $this->templatePath . $this->params->get('admin_cssfile', 'css/template.css');
 
 		}
 
 		//check if .less file exists and is readable
-		if (is_readable($lessFile))
+		if (is_readable($this->lessFile))
 		{
 			//initialise less compiler
-			try
-			{
-				$this->compileLess($table, $templatePath, $lessFile, $cssFile);
-			}
-			catch (Exception $e)
-			{
-				$app->enqueueMessage(JText::_($e->getMessage(), 'error'));
-			}
+			$this->compileLess($table);
 		}
 
 		return false;
 	}
 
-	/**
-	 * Remove template.css from document html
-	 * Stylesheet href may include query string, ie template.css?1234567890123
-	 * @author   piotr-cz
-	 *
-	 * @return   void
-	 */
-	public function removeCss()
-	{
-		// Initialise variables
-		$doc = JFactory::getDocument();
-		$body = JResponse::getBody();
-
-		// Get Uri to template stylesheet file
-		$templateUri = JUri::base(true) . '/templates/' . $doc->template . '/';
-		$cssUri = $templateUri . $this->params->get('cssfile', 'css/template.css');
-
-		// Replace line with link element and path to stylesheet file
-		$replaced = preg_replace( '~(\s*?<link.* href=".*?' . preg_quote($cssUri) . '(?:\?.*)?".*/>)~', '', $body, -1, $count);
-
-		if ($count)
-		{
-			JResponse::setBody($replaced);
-		}
-
-		return;
-	}
-	
 	/**
 	 * Compile .less files on template style change
 	 *
@@ -168,19 +136,19 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 
 		// Path to less file
-		$client       = ($table->client_id) ? JPATH_ADMINISTRATOR : JPATH_SITE;
-		$templatePath = $client . '/templates/' . $table->template;
-		$lessFile     = $templatePath . '/less/template.less';
-		$cssFile      = $templatePath . '/css/template' . $table->id . '.css';
+		$client       		= ($table->client_id) ? JPATH_ADMINISTRATOR : JPATH_SITE;
+		$this->templatePath = $client . '/templates/' . $table->template;
+		$this->lessFile     = $this->templatePath . '/less/template.less';
+		$this->cssFile 		= $this->templatePath . '/css/template' . $table->id . '.css';
 
 		// Check if .less file exists and is readable
-		if (is_readable($lessFile))
+		if (is_readable($this->lessFile))
 		{
-			$this->compileLess($table, $templatePath, $lessFile, $cssFile);
+			$this->compileLess($table, $this->templatePath);
 		}
 	}
 	
-	public function compileLess($table, $templatePath, $lessFile, $cssFile)
+	protected function compileLess($table)
 	{
 		$less = new JLess;
 
@@ -196,22 +164,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 
 		$params_array = $table->params->toArray();
-
-		// Unset the some parameter as it breaks the compiler if it starts with a dot (.) or hash (#).
-		$unsets = array(
-					'customCssCode',
-					'textLogo',
-					'slogan',
-					'copyText',
-				);
-
-		foreach ($unsets as $unset)
-		{
-			if (array_key_exists($unset, $params_array))
-			{
-				unset($params_array[$unset]);
-			}
-		}
 
 		// Sanitising params for LESS
 		foreach ($params_array as &$value)
@@ -234,19 +186,11 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		$less->setVariables($params_array);
 
-		$less->setImportDir(array($templatePath . '/less/'));
-		$lessString = file_get_contents($lessFile);
+		$less->setImportDir(array($this->templatePath . '/less/'));
+		$lessString = file_get_contents($this->lessFile);
 
 		// Check for custom files
-		if (is_readable($templatePath . '/less/custom.less'))
-		{
-			$lessString .= file_get_contents($templatePath . '/less/custom.less');
-		}
-
-		if (is_readable($templatePath . '/css/custom.css'))
-		{
-			$lessString .= file_get_contents($templatePath . '/css/custom.css');
-		}
+		$lessString = $this->checkCustomFiles($lessString);
 
 		try
 		{
@@ -257,9 +201,24 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
 		}
 
-		JFile::write($cssFile, $cssString);
+		JFile::write($this->cssFile, $cssString);
 
 		$this->loadLanguage();
-		$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $cssFile), 'message');
+		$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $this->cssFile), 'message');
+	}
+	
+	protected function checkCustomFiles($lessString)
+	{
+		if (is_readable($this->templatePath . '/less/custom.less'))
+		{
+			$lessString .= file_get_contents($this->templatePath . '/less/custom.less');
+		}
+
+		if (is_readable($this->templatePath . '/css/custom.css'))
+		{
+			$lessString .= file_get_contents($this->templatePath . '/css/custom.css');
+		}
+		
+		return $lessString;
 	}
 }
