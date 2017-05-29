@@ -29,59 +29,6 @@
 					<option value="1">PLG_SYSTEM_LESS_FIELD_MODE_ADMIN</option>
 					<option value="2">PLG_SYSTEM_LESS_FIELD_MODE_BOTH</option>
 				</field>
-
-				<field name="sitespacer" type="spacer" class="text"
-					label="PLG_SYSTEM_LESS_SITESPACER"
-				/>
-				<field name="sitelessc" type="filelist" 
-					default="lessc-0.3.9" 
-					label="PLG_SYSTEM_LESS_FIELD_SITELESSC_LABEL"
-					description="PLG_SYSTEM_LESS_FIELD_SITELESSC_DESC"
-					directory="plugins/system/lesstemplatecompanion/lessc" 
-					filter="\.php" 
-					exclude="" 
-					stripext="1"
-                    hide_none="1"
-                    hide_default="1" />
-				<field name="lessfile" type="text"
-					description="PLG_SYSTEM_LESS_FIELD_LESSFILE_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_LESSFILE_LABEL"
-					default="less/template.less"
-					size="37"
-				/>
-				<field name="cssfile" type="text"
-					description="PLG_SYSTEM_LESS_FIELD_CSSFILE_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_CSSFILE_LABEL"
-					default="css/template.css"
-					size="37"
-				/>
-				<field type="spacer" name="adminspacer" class="text"
-					label="PLG_SYSTEM_LESS_ADMINSPACER"
-				/>
-				<field name="adminlessc" 
-					type="filelist" 
-					default="lessc-0.3.9" 
-					label="PLG_SYSTEM_LESS_FIELD_ADMINLESSC_LABEL"
-					description="PLG_SYSTEM_LESS_FIELD_ADMINLESSC_DESC"
-					directory="plugins/system/lesstemplatecompanion/lessc" 
-					filter="\.php" 
-					exclude="" 
-					stripext="1"
-                    hide_none="1"
-                    hide_default="1" />
-				<field name="admin_lessfile" type="text"
-					description="PLG_SYSTEM_LESS_FIELD_ADMINLESSFILE_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_ADMINLESSFILE_LABEL"
-					default="less/template.less"
-					size="37"
-				/>
-				<field name="admin_cssfile" type="text"
-					description="PLG_SYSTEM_LESS_FIELD_ADMINCSSFILE_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_ADMINCSSFILE_LABEL"
-					default="css/template.css"
-					size="37"
-				/>
-
 				<field type="spacer" name="lessspacer" class="text"
 					label="PLG_SYSTEM_LESS_LESSSPACER"
 				/>
