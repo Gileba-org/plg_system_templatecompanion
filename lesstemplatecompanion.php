@@ -152,16 +152,9 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	{
 		$less = new JLess;
 
-		if ($table->params->get('cssCompress', 0))
-		{
-			$less->setFormatter('compressed');
-		}
-		else
-		{
-			// Joomla way
-			$formatter = new JLessFormatterJoomla;
-			$less->setFormatter($formatter);
-		}
+		// Joomla way
+		$formatter = new JLessFormatterJoomla;
+		$less->setFormatter($formatter);
 
 		$params_array = $table->params->toArray();
 
