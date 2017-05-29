@@ -155,7 +155,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 	}
 	
-	public function compileLess($table)
+	protected function compileLess($table)
 	{
 		$less = new JLess;
 
