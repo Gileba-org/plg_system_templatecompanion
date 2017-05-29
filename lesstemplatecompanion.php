@@ -108,34 +108,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	}
 
 	/**
-	 * Remove template.css from document html
-	 * Stylesheet href may include query string, ie template.css?1234567890123
-	 * @author   piotr-cz
-	 *
-	 * @return   void
-	 */
-	public function removeCss()
-	{
-		// Initialise variables
-		$doc = JFactory::getDocument();
-		$body = JResponse::getBody();
-
-		// Get Uri to template stylesheet file
-		$templateUri = JUri::base(true) . '/templates/' . $doc->template . '/';
-		$cssUri = $templateUri . $this->params->get('cssfile', 'css/template.css');
-
-		// Replace line with link element and path to stylesheet file
-		$replaced = preg_replace( '~(\s*?<link.* href=".*?' . preg_quote($cssUri) . '(?:\?.*)?".*/>)~', '', $body, -1, $count);
-
-		if ($count)
-		{
-			JResponse::setBody($replaced);
-		}
-
-		return;
-	}
-	
-	/**
 	 * Compile .less files on template style change
 	 *
 	 * @param   string  $context  Context of the data
