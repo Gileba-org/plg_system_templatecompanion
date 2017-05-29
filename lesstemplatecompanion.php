@@ -26,6 +26,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 * @var $app
 	 */
 	protected $app;
+	protected $lessFile		= '';
 
 	/**
 	 * override constructor to load classes as soon as possible
@@ -46,8 +47,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 */
 	function onBeforeRender()
 	{
-		//path to less file
-		$lessFile 	= '';
 		$table		= $this->app->getTemplate(true);
 
 		// 0 = frontend only
@@ -70,7 +69,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			$templatePath = JPATH_BASE . DIRECTORY_SEPARATOR . 'templates/' . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
 
 			//entrypoint for main .less file, default is less/template.less
-			$lessFile = $templatePath . $this->params->get('lessfile', 'less/template.less');
+			$this->lessFile = $templatePath . $this->params->get('lessfile', 'less/template.less');
 
 			//destination .css file, default css/template.css
 			$cssFile = $templatePath . $this->params->get('cssfile', 'css/template.css');
@@ -83,7 +82,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			$templatePath = JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'templates/' . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
 
 			//entrypoint for main .less file, default is less/template.less
-			$lessFile = $templatePath . $this->params->get('admin_lessfile', 'less/template.less');
+			$this->lessFile = $templatePath . $this->params->get('admin_lessfile', 'less/template.less');
 
 			//destination .css file, default css/template.css
 			$cssFile = $templatePath . $this->params->get('admin_cssfile', 'css/template.css');
@@ -91,12 +90,12 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 
 		//check if .less file exists and is readable
-		if (is_readable($lessFile))
+		if (is_readable($this->lessFile))
 		{
 			//initialise less compiler
 			try
 			{
-				$this->compileLess($table, $templatePath, $lessFile, $cssFile);
+				$this->compileLess($table, $templatePath, $cssFile);
 			}
 			catch (Exception $e)
 			{
@@ -168,19 +167,19 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 
 		// Path to less file
-		$client       = ($table->client_id) ? JPATH_ADMINISTRATOR : JPATH_SITE;
-		$templatePath = $client . '/templates/' . $table->template;
-		$lessFile     = $templatePath . '/less/template.less';
-		$cssFile      = $templatePath . '/css/template' . $table->id . '.css';
+		$client       		= ($table->client_id) ? JPATH_ADMINISTRATOR : JPATH_SITE;
+		$templatePath 		= $client . '/templates/' . $table->template;
+		$this->lessFile     = $templatePath . '/less/template.less';
+		$cssFile      		= $templatePath . '/css/template' . $table->id . '.css';
 
 		// Check if .less file exists and is readable
-		if (is_readable($lessFile))
+		if (is_readable($this->lessFile))
 		{
-			$this->compileLess($table, $templatePath, $lessFile, $cssFile);
+			$this->compileLess($table, $templatePath, $cssFile);
 		}
 	}
 	
-	public function compileLess($table, $templatePath, $lessFile, $cssFile)
+	public function compileLess($table, $templatePath, $cssFile)
 	{
 		$less = new JLess;
 
@@ -235,7 +234,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$less->setVariables($params_array);
 
 		$less->setImportDir(array($templatePath . '/less/'));
-		$lessString = file_get_contents($lessFile);
+		$lessString = file_get_contents($this->lessFile);
 
 		// Check for custom files
 		if (is_readable($templatePath . '/less/custom.less'))
