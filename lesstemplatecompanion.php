@@ -213,7 +213,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$lessString = file_get_contents($this->lessFile);
 
 		// Check for custom files
-		$lessString = checkCustomFiles($lessString);
+		$lessString = $this->checkCustomFiles($lessString);
 
 		try
 		{
