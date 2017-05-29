@@ -237,7 +237,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			$lessString .= file_get_contents($this->templatePath . '/less/custom.less');
 		}
 
-		if (is_readable($templatePath . '/css/custom.css'))
+		if (is_readable($this->templatePath . '/css/custom.css'))
 		{
 			$lessString .= file_get_contents($this->templatePath . '/css/custom.css');
 		}
