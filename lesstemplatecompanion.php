@@ -165,22 +165,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		$params_array = $table->params->toArray();
 
-		// Unset the some parameter as it breaks the compiler if it starts with a dot (.) or hash (#).
-		$unsets = array(
-					'customCssCode',
-					'textLogo',
-					'slogan',
-					'copyText',
-				);
-
-		foreach ($unsets as $unset)
-		{
-			if (array_key_exists($unset, $params_array))
-			{
-				unset($params_array[$unset]);
-			}
-		}
-
 		// Sanitising params for LESS
 		foreach ($params_array as &$value)
 		{
