@@ -49,7 +49,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	/**
 	 * Compile .less files on change
 	 */
-	function onBeforeRender()
+	public function onBeforeRender()
 	{
 		$table		= $this->app->getTemplate(true);
 
