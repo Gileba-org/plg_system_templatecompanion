@@ -114,18 +114,6 @@
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-
-				<field type="spacer" name="clientsidespacer" class="text"
-					label="PLG_SYSTEM_LESS_CLIENTSIDESPACER"
-				/>
-				<field name="clientside_enable" type="radio" class="btn-group btn-group-yesno"
-					description="PLG_SYSTEM_LESS_FIELD_CLIENTSIDE_ENABLE_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_CLIENTSIDE_ENABLE_LABEL"
-					default="0"
-				>
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
 			</fieldset>
 		</fields>
 	</config>
