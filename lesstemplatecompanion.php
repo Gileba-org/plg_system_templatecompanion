@@ -97,14 +97,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		if (is_readable($this->lessFile))
 		{
 			//initialise less compiler
-			try
-			{
-				$this->compileLess($table);
-			}
-			catch (Exception $e)
-			{
-				$app->enqueueMessage(JText::_($e->getMessage(), 'error'));
-			}
+			$this->compileLess($table);
 		}
 
 		return false;
