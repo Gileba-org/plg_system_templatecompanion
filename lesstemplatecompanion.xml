@@ -8,16 +8,11 @@
 	<license>GNU General Public License v3; see	LICENSE</license>
 	<authorEmail>info@gileba.be</authorEmail>
 	<authorUrl>www.gileba.be</authorUrl>
-	<version>0.1.0-alpha.5</version>
+	<version>0.1.0-alpha.6</version>
 	<description>PLG_SYSTEM_LESS_TEMPLATE_COMPANION_XML_DESC</description>
 	<files>
 		<file plugin="lesstemplatecompanion">lesstemplatecompanion.php</file>
-		<folder>lessc</folder>
 	</files>
-	<media destination="plg_lesstemplatecompanion" folder="media">
-		<folder>js</folder>
-		<filename>index.html</filename>
-	</media>
 	<languages>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.ini</language>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.sys.ini</language>
@@ -109,18 +104,6 @@
 				<field name="less_compress" type="radio" class="btn-group btn-group-yesno"
 					description="PLG_SYSTEM_LESS_FIELD_COMPRESSION_DESC"
 					label="PLG_SYSTEM_LESS_FIELD_COMPRESSION_LABEL"
-					default="0"
-				>
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
-				</field>
-
-				<field type="spacer" name="clientsidespacer" class="text"
-					label="PLG_SYSTEM_LESS_CLIENTSIDESPACER"
-				/>
-				<field name="clientside_enable" type="radio" class="btn-group btn-group-yesno"
-					description="PLG_SYSTEM_LESS_FIELD_CLIENTSIDE_ENABLE_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_CLIENTSIDE_ENABLE_LABEL"
 					default="0"
 				>
 					<option value="0">JNO</option>

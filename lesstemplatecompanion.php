@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		System Plugin - Less Template Companion, an automatic Less compiler for developers and users
- * @version		0.1.0-alpha.5
+ * @version		0.1.0-alpha.6
  * @author		Gijs Lamon
  * @copyright	(C) 2017 Gijs Lamon
  * @license		GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -36,36 +36,9 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	{
 		// trigger parent constructor first so params get set
 		parent::__construct($subject, $config);
+
 		// set app
 		$this->app = JFactory::getApplication();
-		// check if lessc already exists but bypass autoloader
-		if (class_exists('lessc', false))
-		{
-			// the lessc class already exists, so we cannot load our own version
-			JDEBUG ? $this->app->enqueueMessage('[DEBUG] class "lessc" already exists, using version ' . lessc::$VERSION) : null;
-		}
-		// load the appropriate class
-		else
-		{
-			// determine the name of the file to load based on application
-			$name = false;
-			if ($this->app->isSite())
-			{
-				$name = $this->params->get('sitelessc', 'lessc-0.3.9');
-			}
-			else if ($this->app->isAdmin())
-			{
-				$name = $this->params->get('adminlessc', 'lessc-0.3.9');
-			}
-			$name && JDEBUG ? $this->app->enqueueMessage("[DEBUG] loading $name") : null;
-			// confirm that the named file exists
-			if ($name && file_exists($file = dirname(__FILE__) . '/lessc/' . $name . '.php'))
-			{
-				require_once $file;
-			}
-		}
-		// trigger autoload in case the file wasn't found while checking for debug
-		class_exists('lessc') && JDEBUG ? $this->app->enqueueMessage("[DEBUG] lessc " . lessc::$VERSION) : null;
 	}
 
 	/**
@@ -120,12 +93,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		//check if .less file exists and is readable
 		if (is_readable($lessFile))
 		{
-			if ((bool) $this->params->get('clientside_enable', 0))
-			{
-				$this->clientsideLess();
-				return false;
-			}
-	
 			//initialise less compiler
 			try
 			{
@@ -138,133 +105,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 
 		return false;
-	}
-
-	/**
-	 * Configure and add Client-side Less library
-	 * @author   piotr-cz
-	 * @return   void
-	 *
-	 * @see      LESS: Ussage  http://lesscss.org/#usage
-	 */
-	function clientsideLess()
-	{
-		// Initialise variables
-		$doc = JFactory::getDocument();
-
-
-		// Early exit
-		if ($doc->getType() !== 'html')
-		{
-			return;
-		}
-
-		// Get asset paths
-		$templateRel = 'templates/' . $doc->template . '/';
-
-
-		// Determine which param to use (admin/ site)
-		$mode = $this->params->get('mode', 0);
-		$lessKey = 'lessfile';
-		$cssKey = 'cssfile';
-
-		if ($this->app->isAdmin() && ($mode == 1 || $mode == 2))
-		{
-			$lessKey = 'admin_' . $lessKey;
-			$cssKey = 'admin_' . $cssKey;
-		}
-
-
-		// Get template css filenames
-		$lessUri = $templateRel . $this->params->get($lessKey, 'less/template.less');
-		$cssUri = $templateRel . $this->params->get($cssKey, 'css/template.css');
-
-
-		// Add less file to document
-		$doc->addHeadLink($lessUri, 'stylesheet/less', 'rel', array('type' => 'text/css'));
-
-		/*
-		 * Configure Less options
-		 *  async			: false,
-		 *  fileAsync		: false,
-		 *  poll			: 1500,
-		 *  relativeUrls	: false,
-		 *  rootpath		: $templateUrl
-		 */
-		$options = array(
-			'env' => 'development',
-			'dumpLineNumbers' => 'mediaquery', // default: 'comments'
-		);
-
-		$doc->addScriptDeclaration('
-				// Less options
-				var less = ' . json_encode($options, JSON_FORCE_OBJECT | (defined('JSON_PRETTY_PRINT') ? JSON_PRETTY_PRINT : false)) . ';
-		');
-
-
-		// Load less.js (pick latest version in media folder)
-		// Joomla adds JS code after libraries in head. We need it other way around
-		$mediaJsDestination = '/media/plg_less/js/';
-		$mediaPath = JPATH_SITE . $mediaJsDestination;
-		$mediaUri = JUri::root(true) . $mediaJsDestination;
-
-		$lessVersions = glob($mediaPath . 'less-*.js');
-
-		if (!empty($lessVersions))
-		{
-			rsort($lessVersions);
-
-			// Load at the end of head
-			$doc->addCustomTag('<script src="' . $mediaUri . basename($lessVersions[0]) . '" type="text/javascript"></script>');
-
-			// Load after options (experimental, cannot use in XHTML documents)
-			/*
-				$doc->addScriptDeclaration('
-						// Less library
-						document.write( unescape( \'%3Cscript src="' . $mediaUri . basename($lessVersions[0]) . '" type="text/javascript"%3E%3C/script%3E\' ) );
-				');
-			*/
-		}
-		// Cannot find client-side parser
-		else
-		{
-			return;
-		}
-
-
-		/*
-		 * Remove template.css from document head
-		 *
-		 * Note:  Css file must be added either using `JFactory::getDocument->addStylesheet($cssFile)` or `JHtml::_('stylesheet', $cssFile)`
-		 * Note:  Cannot rely on removing stylesheet using JDocumentHTML methods.
-		 * Note:  Passes ignore cache trick (template.css?1234567890123)
-		 * Note:  Template.css may be added to $doc['stylesheets'] using following keys:
-		 *	- relative						: `templates/...`
-		 *	- semi		JUri::base(true)	: `/[path-to-root]/templates/...`
-		 * 	- absolute 	JUri::base()		: `http://[host]/[path-to-root]/templates/...`
-		 *	- or outside $doc->_styleSheets
-		 */
-		$lookups = array($cssUri, JUri::base(true) . '/' . $cssUri, JUri::base() . $cssUri);
-
-		// Loop trough all registered document stylesheets...
-		foreach ($doc->_styleSheets as $stylesSheetUri)
-		{
-			// ...and compare to every lookup...
-			foreach ($lookups as $lookup)
-			{
-				// ...that starts like a lookup
-				if (strpos($stylesSheetUri, $lookup) === 0)
-				{
-					unset($doc->_styleSheets[$stylesSheetUri]);
-					return;
-				}
-			}
-		}
-
-		// Didn't find a css file in JDocument instance, register event to remove in from rendered html body.
-		$this->app->registerEvent('onAfterRender', array($this, 'removeCss'));
-
-		return;
 	}
 
 	/**
