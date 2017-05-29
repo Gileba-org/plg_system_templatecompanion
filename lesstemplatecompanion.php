@@ -27,6 +27,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 */
 	protected $app;
 	protected $lessFile		= '';
+	protected $cssFile		= '';
 
 	/**
 	 * override constructor to load classes as soon as possible
@@ -72,7 +73,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			$this->lessFile = $templatePath . $this->params->get('lessfile', 'less/template.less');
 
 			//destination .css file, default css/template.css
-			$cssFile = $templatePath . $this->params->get('cssfile', 'css/template.css');
+			$this->cssFile = $templatePath . $this->params->get('cssfile', 'css/template.css');
 
 		}
 
@@ -85,7 +86,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			$this->lessFile = $templatePath . $this->params->get('admin_lessfile', 'less/template.less');
 
 			//destination .css file, default css/template.css
-			$cssFile = $templatePath . $this->params->get('admin_cssfile', 'css/template.css');
+			$this->cssFile = $templatePath . $this->params->get('admin_cssfile', 'css/template.css');
 
 		}
 
@@ -95,7 +96,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			//initialise less compiler
 			try
 			{
-				$this->compileLess($table, $templatePath, $cssFile);
+				$this->compileLess($table, $templatePath);
 			}
 			catch (Exception $e)
 			{
@@ -170,16 +171,16 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$client       		= ($table->client_id) ? JPATH_ADMINISTRATOR : JPATH_SITE;
 		$templatePath 		= $client . '/templates/' . $table->template;
 		$this->lessFile     = $templatePath . '/less/template.less';
-		$cssFile      		= $templatePath . '/css/template' . $table->id . '.css';
+		$this->cssFile 		= $templatePath . '/css/template' . $table->id . '.css';
 
 		// Check if .less file exists and is readable
 		if (is_readable($this->lessFile))
 		{
-			$this->compileLess($table, $templatePath, $cssFile);
+			$this->compileLess($table, $templatePath);
 		}
 	}
 	
-	public function compileLess($table, $templatePath, $cssFile)
+	public function compileLess($table, $templatePath)
 	{
 		$less = new JLess;
 
@@ -256,9 +257,9 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
 		}
 
-		JFile::write($cssFile, $cssString);
+		JFile::write($this->cssFile, $cssString);
 
 		$this->loadLanguage();
-		$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $cssFile), 'message');
+		$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $this->cssFile), 'message');
 	}
 }
