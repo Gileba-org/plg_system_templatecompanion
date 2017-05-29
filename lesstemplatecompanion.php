@@ -36,36 +36,9 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	{
 		// trigger parent constructor first so params get set
 		parent::__construct($subject, $config);
+
 		// set app
 		$this->app = JFactory::getApplication();
-		// check if lessc already exists but bypass autoloader
-		if (class_exists('lessc', false))
-		{
-			// the lessc class already exists, so we cannot load our own version
-			JDEBUG ? $this->app->enqueueMessage('[DEBUG] class "lessc" already exists, using version ' . lessc::$VERSION) : null;
-		}
-		// load the appropriate class
-		else
-		{
-			// determine the name of the file to load based on application
-			$name = false;
-			if ($this->app->isSite())
-			{
-				$name = $this->params->get('sitelessc', 'lessc-0.3.9');
-			}
-			else if ($this->app->isAdmin())
-			{
-				$name = $this->params->get('adminlessc', 'lessc-0.3.9');
-			}
-			$name && JDEBUG ? $this->app->enqueueMessage("[DEBUG] loading $name") : null;
-			// confirm that the named file exists
-			if ($name && file_exists($file = dirname(__FILE__) . '/lessc/' . $name . '.php'))
-			{
-				require_once $file;
-			}
-		}
-		// trigger autoload in case the file wasn't found while checking for debug
-		class_exists('lessc') && JDEBUG ? $this->app->enqueueMessage("[DEBUG] lessc " . lessc::$VERSION) : null;
 	}
 
 	/**
