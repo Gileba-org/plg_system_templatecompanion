@@ -209,7 +209,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		$less->setVariables($params_array);
 
-		$less->setImportDir(array($templatePath . '/less/'));
+		$less->setImportDir(array($this->templatePath . '/less/'));
 		$lessString = file_get_contents($this->lessFile);
 
 		// Check for custom files
