@@ -142,11 +142,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		$less->setVariables($params_array);
 
-		$less->setImportDir(array($this->templatePath . '/less/'));
 		$lessString = file_get_contents($this->lessFile);
-
-		// Check for custom files
-		$lessString = $this->checkCustomFiles($lessString);
 
 		try
 		{
@@ -163,24 +159,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $this->cssFile), 'message');
 	}
 	
-	/**
-	 * Check for custom files
-	 */
-	protected function checkCustomFiles($lessString)
-	{
-		if (is_readable($this->templatePath . '/less/custom.less'))
-		{
-			$lessString .= file_get_contents($this->templatePath . '/less/custom.less');
-		}
-
-		if (is_readable($this->templatePath . '/css/custom.css'))
-		{
-			$lessString .= file_get_contents($this->templatePath . '/css/custom.css');
-		}
-		
-		return $lessString;
-	}
-
 	/**
 	 * Convert the params to an object
 	 */
