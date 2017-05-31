@@ -67,10 +67,11 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		//check if .less file exists and is readable
 		if (is_readable($this->lessFile))
 		{
-			//initialise less compiler
+			// Check run conditions
+			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0')) return false;
+
 			$this->compileLess($table);
 		}
-
 		return false;
 	}
 
