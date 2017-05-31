@@ -24,6 +24,8 @@ class plgSystemLessTemplateCompanion extends JPlugin
 {
 	/**
 	 * @var $app
+	 * @var $lessFile	Origin file
+	 * @var $cssFile	Destination file
 	 */
 	protected $app;
 	protected $lessFile		= '';
@@ -148,6 +150,9 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 	}
 	
+	/**
+	 * Compile .less files
+	 */
 	protected function compileLess($table)
 	{
 		$less = new JLess;
@@ -200,6 +205,9 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $this->cssFile), 'message');
 	}
 	
+	/**
+	 * Check for custom files
+	 */
 	protected function checkCustomFiles($lessString)
 	{
 		if (is_readable($this->templatePath . '/less/custom.less'))
