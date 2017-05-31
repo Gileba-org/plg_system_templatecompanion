@@ -64,15 +64,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		// 2 = front + backend
 		$mode = $this->params->get('mode', 0);
 
-		// Convert the template params to an object.
-		// TODO: load template params
-		if (is_string($table->params))
-		{
-			$registry = new \Joomla\Registry\Registry;
-			$registry->loadString($table->params);
-			$table->params = $registry;
-		}
-
 		//check if .less file exists and is readable
 		if (is_readable($this->lessFile))
 		{
@@ -100,14 +91,8 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		{
 			return;
 		}
-
-		// Convert the params to an object.
-		if (is_string($table->params))
-		{
-			$registry = new \Joomla\Registry\Registry;
-			$registry->loadString($table->params);
-			$table->params = $registry;
-		}
+		
+		$table->params = $this->paramsToObject($table->params);
 
 		// Check if parameter "useLESS" is set
 		if (!$table->params->get('useLESS'))
@@ -193,5 +178,20 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 		
 		return $lessString;
+	}
+
+	/**
+	 * Convert the params to an object
+	 */
+	private function paramsToObject($params)
+	{
+		if (is_string($params))
+		{
+			$registry = new \Joomla\Registry\Registry;
+			$registry->loadString($table->params);
+			$params = $registry;
+		}
+		
+		return $params;
 	}
 }
