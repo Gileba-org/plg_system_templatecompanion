@@ -121,12 +121,17 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	{
 		$less = new JLess;
 
-		// Joomla way
-		$formatter = new JLessFormatterJoomla;
-		$less->setFormatter($formatter);
 		// Preserve comments
 		$less->setPreserveComments($this->params->get('less_comments'));
 		
+		// Formatter
+		switch ($this->params->get('less_compress')) {
+			case: 'Joomla'
+				$formatter = new JLessFormatterJoomla;
+				$less->setFormatter($formatter);
+			default:
+				$less->setFormatter($this->params->get('less_compress'));
+		}
 
 		$templateParams = $table->params->toArray();
 
