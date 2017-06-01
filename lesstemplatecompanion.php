@@ -125,10 +125,10 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$formatter = new JLessFormatterJoomla;
 		$less->setFormatter($formatter);
 
-		$params_array = $table->params->toArray();
+		$templateParams = $table->params->toArray();
 
 		// Sanitising params for LESS
-		foreach ($params_array as &$value)
+		foreach ($templateParams as &$value)
 		{
 			// Trim whitespaces
 			$value = trim($value);
@@ -146,7 +146,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			}
 		}
 
-		$less->setVariables($params_array);
+		$less->setVariables($templateParams);
 		$less->addImportDir($this->templatePath . "/less");
 
 		$lessString = file_get_contents($this->lessFile);
