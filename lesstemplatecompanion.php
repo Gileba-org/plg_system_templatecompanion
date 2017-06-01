@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		System Plugin - Less Template Companion, an automatic Less compiler for developers and users
- * @version		0.1.0-alpha.7
+ * @version		0.1.0-alpha.8
  * @author		Gijs Lamon
  * @copyright	(C) 2017 Gijs Lamon
  * @license		GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -93,7 +93,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			return;
 		}
 		
-		$table->params = $this->paramsToObject($table->params);
+		if (!(isObject($table->params))) $table->params = $this->paramsToObject($table->params);
 
 		// Check if parameter "useLESS" is set
 		if (!$table->params->get('useLESS'))
@@ -110,6 +110,12 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	
 	/**
 	 * Compile .less files
+	 *
+	 * @param   object  $table  Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function compileLess($table)
 	{
@@ -141,12 +147,9 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 
 		$less->setVariables($params_array);
+		$less->addImportDir($this->templatePath . "/less");
 
-		$less->setImportDir(array($this->templatePath . '/less/'));
 		$lessString = file_get_contents($this->lessFile);
-
-		// Check for custom files
-		$lessString = $this->checkCustomFiles($lessString);
 
 		try
 		{
@@ -158,41 +161,26 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 
 		JFile::write($this->cssFile, $cssString);
-
-		$this->loadLanguage();
-		$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $this->cssFile), 'message');
-	}
-	
-	/**
-	 * Check for custom files
-	 */
-	protected function checkCustomFiles($lessString)
-	{
-		if (is_readable($this->templatePath . '/less/custom.less'))
-		{
-			$lessString .= file_get_contents($this->templatePath . '/less/custom.less');
-		}
-
-		if (is_readable($this->templatePath . '/css/custom.css'))
-		{
-			$lessString .= file_get_contents($this->templatePath . '/css/custom.css');
-		}
-		
-		return $lessString;
 	}
 
 	/**
 	 * Convert the params to an object
+	 *
+	 * @param   String  $params  the string to convert
+	 *
+	 * @return  Object
+	 *
+	 * @since   1.0
 	 */
 	private function paramsToObject($params)
 	{
 		if (is_string($params))
 		{
 			$registry = new \Joomla\Registry\Registry;
-			$registry->loadString($table->params);
+			$registry->loadString($params);
 			$params = $registry;
 		}
-		
+
 		return $params;
 	}
 }
