@@ -110,6 +110,12 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	
 	/**
 	 * Compile .less files
+	 *
+	 * @param   object  $table  Table object
+	 *
+	 * @return  void
+	 *
+	 * @since   1.0
 	 */
 	protected function compileLess($table)
 	{
@@ -162,6 +168,12 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 	/**
 	 * Convert the params to an object
+	 *
+	 * @param   String  $params  the string to convert
+	 *
+	 * @return  Object
+	 *
+	 * @since   1.0
 	 */
 	private function paramsToObject($params)
 	{
