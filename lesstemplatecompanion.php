@@ -93,7 +93,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			return;
 		}
 		
-		$table->params = $this->paramsToObject($table->params);
+		if (!(isObject($table->params))) $table->params = $this->paramsToObject($table->params);
 
 		// Check if parameter "useLESS" is set
 		if (!$table->params->get('useLESS'))
@@ -159,7 +159,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$this->loadLanguage();
 		$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $this->cssFile), 'message');
 	}
-	
+
 	/**
 	 * Convert the params to an object
 	 */
@@ -168,10 +168,10 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		if (is_string($params))
 		{
 			$registry = new \Joomla\Registry\Registry;
-			$registry->loadString($table->params);
+			$registry->loadString($params);
 			$params = $registry;
 		}
-		
+
 		return $params;
 	}
 }
