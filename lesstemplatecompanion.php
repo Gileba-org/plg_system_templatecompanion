@@ -161,9 +161,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 
 		JFile::write($this->cssFile, $cssString);
-
-		$this->loadLanguage();
-		$this->app->enqueueMessage(JText::sprintf('PLG_SYSTEM_LESSALLROUNDER_SUCCESS', $this->cssFile), 'message');
 	}
 
 	/**
