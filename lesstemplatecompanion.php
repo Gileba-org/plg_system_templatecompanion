@@ -118,14 +118,22 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	{
 		$less = new JLess;
 
-		// Joomla way
-		$formatter = new JLessFormatterJoomla;
-		$less->setFormatter($formatter);
+		// Preserve comments
+		$less->setPreserveComments($this->params->get('less_comments'));
+		
+		// Formatter
+		switch ($this->params->get('less_compress')) {
+			case: 'Joomla'
+				$formatter = new JLessFormatterJoomla;
+				$less->setFormatter($formatter);
+			default:
+				$less->setFormatter($this->params->get('less_compress'));
+		}
 
-		$params_array = $table->params->toArray();
+		$templateParams = $table->params->toArray();
 
 		// Sanitising params for LESS
-		foreach ($params_array as &$value)
+		foreach ($templateParams as &$value)
 		{
 			// Trim whitespaces
 			$value = trim($value);
@@ -143,7 +151,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			}
 		}
 
-		$less->setVariables($params_array);
+		$less->setVariables($templateParams);
 		$less->addImportDir($this->templatePath . "/less");
 
 		$lessString = file_get_contents($this->lessFile);
