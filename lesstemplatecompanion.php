@@ -42,9 +42,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		// trigger parent constructor first so params get set
 		parent::__construct($subject, $config);
 
-		// set app
-		$this->app = JFactory::getApplication();
-		
 		$client = $this->app->isSite() ? JPATH_SITE : JPATH_ADMINISTRATOR;
 		$this->templatePath = $client . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
 
