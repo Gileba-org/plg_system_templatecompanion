@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		System Plugin - Less Template Companion, an automatic Less compiler for developers and users
- * @version		0.1.0-alpha.8
+ * @version		0.1.0-alpha.9
  * @author		Gijs Lamon
  * @copyright	(C) 2017 Gijs Lamon
  * @license		GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -30,6 +30,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	protected $app;
 	protected $lessFile		= '';
 	protected $cssFile		= '';
+	protected $cacheFile		= '';
 	protected $templatePath	= '';
 
 	/**
@@ -47,6 +48,16 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		$this->lessFile     = $this->templatePath . 'less/template.less';
 		$this->cssFile 		= $this->templatePath . 'css/template.css';
+
+		// load config file
+		$config = JFactory::getConfig();
+
+		//path to temp folder
+		$tmpPath = $config->get('tmp_path');
+
+		//load chached file
+		$this->cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . "_" . basename($this->lessFile) . ".cache";
+
 	}
 
 	/**
@@ -116,6 +127,9 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 */
 	protected function compileLess($table)
 	{
+		$cache = $this->getCache();
+
+		// Instantiate new JLess compiler
 		$less = new JLess;
 
 		// Preserve comments
@@ -123,7 +137,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		
 		// Formatter
 		switch ($this->params->get('less_compress')) {
-			case: 'Joomla'
+			case 'Joomla':
 				$formatter = new JLessFormatterJoomla;
 				$less->setFormatter($formatter);
 			default:
@@ -153,19 +167,15 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		$less->setVariables($templateParams);
 		$less->addImportDir($this->templatePath . "/less");
+		
+		//compile cache file
+		$newCache = $less->cachedCompile($cache, $this->params->get('less_force'));
 
-		$lessString = file_get_contents($this->lessFile);
-
-		try
+		if (!is_array($cache) || $newCache["updated"] > $cache["updated"])
 		{
-			$cssString = $less->compile($lessString);
+			JFile::write($this->cacheFile, serialize($newCache));
+			JFile::write($this->cssFile, $newCache['compiled']);
 		}
-		catch (Exception $e)
-		{
-			$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
-		}
-
-		JFile::write($this->cssFile, $cssString);
 	}
 
 	/**
@@ -187,5 +197,20 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		}
 
 		return $params;
+	}
+	
+	private function getCache()
+	{
+		if (file_exists($this->cacheFile))
+		{
+			$tmpCache = unserialize(file_get_contents($this->cacheFile));
+			if ($tmpCache['root'] === $this->lessFile)
+			{
+				$cache = $tmpCache;
+				return $cache;
+			}
+			return $this->lessFile;
+		}
+		return $this->lessFile;
 	}
 }
