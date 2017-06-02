@@ -103,6 +103,12 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		
 		if (!(is_object($table->params))) $table->params = $this->paramsToObject($table->params);
 
+		// Only proceed if the template wants to specify less variables
+		if (!$table->params->get('useLESS'))
+		{
+			return;
+		}
+
 		// Check if .less file exists and is readable
 		if (is_readable($this->lessFile))
 		{
