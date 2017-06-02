@@ -30,6 +30,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	protected $app;
 	protected $lessFile		= '';
 	protected $cssFile		= '';
+	protected $cacheFile		= '';
 	protected $templatePath	= '';
 
 	/**
@@ -47,6 +48,16 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		$this->lessFile     = $this->templatePath . 'less/template.less';
 		$this->cssFile 		= $this->templatePath . 'css/template.css';
+
+		// load config file
+		$config = JFactory::getConfig();
+
+		//path to temp folder
+		$tmpPath = $config->get('tmp_path');
+
+		//load chached file
+		$this->cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . "_" . basename($this->lessFile) . ".cache";
+
 	}
 
 	/**
@@ -116,7 +127,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 */
 	protected function compileLess($table)
 	{
-		$cache = $this->getCache(;
+		$cache = $this->getCache();
 
 		// Instantiate new JLess compiler
 		$less = new JLess;
@@ -126,7 +137,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		
 		// Formatter
 		switch ($this->params->get('less_compress')) {
-			case: 'Joomla'
+			case 'Joomla':
 				$formatter = new JLessFormatterJoomla;
 				$less->setFormatter($formatter);
 			default:
@@ -158,11 +169,12 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$less->addImportDir($this->templatePath . "/less");
 		
 		//compile cache file
-		$newCache = $less->cachedCompile($cache, $this->params->get('less_force');
+		$newCache = $less->cachedCompile($cache, $this->params->get('less_force'));
 
 		if (!is_array($cache) || $newCache["updated"] > $cache["updated"])
 		{
-			JFile::write($cacheFile, serialize($newCache));
+			echo "The template has been updated";
+			JFile::write($this->cacheFile, serialize($newCache));
 			JFile::write($this->cssFile, $newCache['compiled']);
 		}
 	}
@@ -190,27 +202,16 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	
 	private function getCache()
 	{
-		// load config file
-		$config = JFactory::getConfig();
-
-		//path to temp folder
-		$tmpPath = $config->get('tmp_path');
-
-		//load chached file
-		$cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . "_" . basename($inputFile) . ".cache";
-
-		if (file_exists($cacheFile))
+		if (file_exists($this->cacheFile))
 		{
-			$tmpCache = unserialize(file_get_contents($cacheFile));
+			$tmpCache = unserialize(file_get_contents($this->cacheFile));
 			if ($tmpCache['root'] === $this->lessFile)
 			{
 				$cache = $tmpCache;
 				return $cache;
 			}
-
-			return $cache;
-			}
+			return $this->lessFile;
 		}
-		return $cache
+		return $this->lessFile;
 	}
 }
