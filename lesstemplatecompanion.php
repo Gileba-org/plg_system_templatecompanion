@@ -173,7 +173,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		if (!is_array($cache) || $newCache["updated"] > $cache["updated"])
 		{
-			echo "The template has been updated";
 			JFile::write($this->cacheFile, serialize($newCache));
 			JFile::write($this->cssFile, $newCache['compiled']);
 		}
