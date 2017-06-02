@@ -42,9 +42,6 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		// trigger parent constructor first so params get set
 		parent::__construct($subject, $config);
 
-		// set app
-		$this->app = JFactory::getApplication();
-		
 		$client = $this->app->isSite() ? JPATH_SITE : JPATH_ADMINISTRATOR;
 		$this->templatePath = $client . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
 
@@ -124,14 +121,22 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		// Instantiate new JLess compiler
 		$less = new JLess;
 
-		// Joomla way
-		$formatter = new JLessFormatterJoomla;
-		$less->setFormatter($formatter);
+		// Preserve comments
+		$less->setPreserveComments($this->params->get('less_comments'));
+		
+		// Formatter
+		switch ($this->params->get('less_compress')) {
+			case: 'Joomla'
+				$formatter = new JLessFormatterJoomla;
+				$less->setFormatter($formatter);
+			default:
+				$less->setFormatter($this->params->get('less_compress'));
+		}
 
-		$params_array = $table->params->toArray();	
+		$templateParams = $table->params->toArray();
 
 		// Sanitising params for LESS
-		foreach ($params_array as &$value)
+		foreach ($templateParams as &$value)
 		{
 			// Trim whitespaces
 			$value = trim($value);
@@ -149,7 +154,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			}
 		}
 
-		$less->setVariables($params_array);
+		$less->setVariables($templateParams);
 		$less->addImportDir($this->templatePath . "/less");
 		
 		//compile cache file
