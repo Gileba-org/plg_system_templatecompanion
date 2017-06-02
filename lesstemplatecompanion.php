@@ -144,28 +144,8 @@ class plgSystemLessTemplateCompanion extends JPlugin
 				$less->setFormatter($this->params->get('less_compress'));
 		}
 
-		$templateParams = $table->params->toArray();
+		$less->setVariables($this->setLessVariables($table->params->toArray()));
 
-		// Sanitising params for LESS
-		foreach ($templateParams as &$value)
-		{
-			// Trim whitespaces
-			$value = trim($value);
-
-			// Adding quotes around variable so it's threaten as string if a slash is in it.
-			if (strpos($value, '/') !== false)
-			{
-				$value = '"' . $value . '"';
-			}
-
-			// Quoting empty values as they break the compiler
-			if ($value == '')
-			{
-				$value = '""';
-			}
-		}
-
-		$less->setVariables($templateParams);
 		$less->addImportDir($this->templatePath . "/less");
 		
 		//compile cache file
@@ -212,5 +192,45 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			return $this->lessFile;
 		}
 		return $this->lessFile;
+	}
+	
+	/**
+	 * Convert the params to an object
+	 *
+	 * @param   Array	$params  		an array with template params
+	 *
+	 * @return  Array	$lessParams		a sanitised array of specific less params
+	 *
+	 * @since   1.0
+	 */
+	private function setLessVariables($params) {
+		$lessParams = array();
+		
+		// Sanitising params for LESS
+		foreach ($params as $key => $value)
+		{
+			// Select useful params
+			if (substr( $key, 0, 4 ) === "ltc_" {
+				// Trim whitespaces
+				$value = trim($value);
+			
+				// Adding quotes around variable so it's threaten as string if a slash is in it.
+				if (strpos($value, '/') !== false)
+				{
+					$value = '"' . $value . '"';
+				}
+				
+				// Quoting empty values as they break the compiler
+				if ($value == '')
+				{
+					$value = '""';
+				}
+				
+				// Add variable to return list
+				$lessParams[substr($key, 5, strlen($key))] = $value;
+			}
+		}
+		
+		return $lessParams;
 	}
 }
