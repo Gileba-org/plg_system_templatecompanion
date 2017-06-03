@@ -78,7 +78,14 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			// Check run conditions
 			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0')) return false;
 
-			$this->compileLess($table, $this->params->get('less_force'));
+			try
+			{
+  			$this->compileLess($table, $this->params->get('less_force'));
+			}
+			catch (Exception $e)
+			{
+				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
+			}
 		}
 		return false;
 	}
@@ -112,7 +119,14 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		// Check if .less file exists and is readable
 		if (is_readable($this->lessFile))
 		{
-			$this->compileLess($table, true);
+			try
+			{
+  			$this->compileLess($table, true);
+			}
+			catch (Exception $e)
+			{
+				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
+			}
 		}
 	}
 	
