@@ -78,7 +78,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			// Check run conditions
 			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0')) return false;
 
-			$this->compileLess($table);
+			$this->compileLess($table, $this->params->get('less_force'));
 		}
 		return false;
 	}
@@ -101,9 +101,9 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			return;
 		}
 		
-		if (!(isObject($table->params))) $table->params = $this->paramsToObject($table->params);
+		if (!(is_object($table->params))) $table->params = $this->paramsToObject($table->params);
 
-		// Check if parameter "useLESS" is set
+		// Only proceed if the template wants to specify less variables
 		if (!$table->params->get('useLESS'))
 		{
 			return;
@@ -112,7 +112,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		// Check if .less file exists and is readable
 		if (is_readable($this->lessFile))
 		{
-			$this->compileLess($table);
+			$this->compileLess($table, true);
 		}
 	}
 	
@@ -125,7 +125,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 *
 	 * @since   1.0
 	 */
-	protected function compileLess($table)
+	protected function compileLess($table, $force)
 	{
 		$cache = $this->getCache();
 
@@ -144,32 +144,12 @@ class plgSystemLessTemplateCompanion extends JPlugin
 				$less->setFormatter($this->params->get('less_compress'));
 		}
 
-		$templateParams = $table->params->toArray();
+		$less->setVariables($this->setLessVariables($table->params->toArray()));
 
-		// Sanitising params for LESS
-		foreach ($templateParams as &$value)
-		{
-			// Trim whitespaces
-			$value = trim($value);
-
-			// Adding quotes around variable so it's threaten as string if a slash is in it.
-			if (strpos($value, '/') !== false)
-			{
-				$value = '"' . $value . '"';
-			}
-
-			// Quoting empty values as they break the compiler
-			if ($value == '')
-			{
-				$value = '""';
-			}
-		}
-
-		$less->setVariables($templateParams);
 		$less->addImportDir($this->templatePath . "/less");
 		
 		//compile cache file
-		$newCache = $less->cachedCompile($cache, $this->params->get('less_force'));
+		$newCache = $less->cachedCompile($cache, $force);
 
 		if (!is_array($cache) || $newCache["updated"] > $cache["updated"])
 		{
@@ -212,5 +192,45 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			return $this->lessFile;
 		}
 		return $this->lessFile;
+	}
+	
+	/**
+	 * Convert the params to an object
+	 *
+	 * @param   Array	$params  		an array with template params
+	 *
+	 * @return  Array	$lessParams		a sanitised array of specific less params
+	 *
+	 * @since   1.0
+	 */
+	private function setLessVariables($params) {
+		$lessParams = array();
+		
+		// Sanitising params for LESS
+		foreach ($params as $key => $value)
+		{
+			// Select useful params
+			if (substr( $key, 0, 4 ) === "ltc_") {
+				// Trim whitespaces
+				$value = trim($value);
+			
+				// Adding quotes around variable so it's threaten as string if a slash is in it.
+				if (strpos($value, '/') !== false)
+				{
+					$value = '"' . $value . '"';
+				}
+				
+				// Quoting empty values as they break the compiler
+				if ($value == '')
+				{
+					$value = '""';
+				}
+				
+				// Add variable to return list
+				$lessParams[substr($key, 4, strlen($key))] = $value;
+			}
+		}
+		
+		return $lessParams;
 	}
 }
