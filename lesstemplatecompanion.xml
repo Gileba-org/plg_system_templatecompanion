@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension
-	version="2.5" type="plugin" group="system" method="upgrade">
+	version="3.2" type="plugin" group="system" method="upgrade">
 	<name>System - Less Template Companion</name>
 	<author>Gijs Lamon</author>
-	<creationDate>2017-05-27</creationDate>
+	<creationDate>2017-03-06</creationDate>
 	<copyright>(C) 2017 Gijs Lamon</copyright>
 	<license>GNU General Public License v3; see	LICENSE</license>
 	<authorEmail>info@gileba.be</authorEmail>
 	<authorUrl>www.gileba.be</authorUrl>
-	<version>0.1.0-alpha.9</version>
+	<version>0.1.0-beta.1</version>
 	<description>PLG_SYSTEM_LESS_TEMPLATE_COMPANION_XML_DESC</description>
 	<files>
 		<file plugin="lesstemplatecompanion">lesstemplatecompanion.php</file>
