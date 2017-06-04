@@ -12,7 +12,7 @@ class plgSystemLessTemplateCompanion extends TestCase
 	        'color_link' => '#654321'
         );
         
-        $result_array = 'SetLessVariables'
+        $result_array = 'SetLessVariables';
         $this->assertThat($result_array, $this->EqualTo(array('color_main' => '#123456')));
     }
 }
