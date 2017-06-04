@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 require_once('./lesstemplatecompanion.php');
 
-class plgSystemLessTemplateCompanion extends TestCase
+class plgSystemLessTemplateCompanionTest extends TestCase
 {
     public function testSetLessVariables()
     {
