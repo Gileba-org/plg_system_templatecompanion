@@ -14,7 +14,7 @@ class plgSystemLessTemplateCompanionTest extends TestCase
 
 		$result_array = setLessVariables($test_array);
 
-		$this->assertThat($result_array, $this->EqualTo(array('color_main' => '#123456')));
+		$this->assertThat($result_array, $this->EqualTo(array('color_main' => '#123457')));
     }
 }
 ?>
