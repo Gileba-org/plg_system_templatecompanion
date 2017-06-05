@@ -5,7 +5,7 @@ require_once('./lesstemplatecompanion.php');
 
 class plgSystemLessTemplateCompanionTest extends TestCase
 {
-    public function testsetLessVariables()
+    public function testSetLessVariables()
     {
 	    $test_array = array(
 			'ltc_color_main' => '#123456',
