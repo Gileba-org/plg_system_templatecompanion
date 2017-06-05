@@ -3,6 +3,7 @@
 	<testsuites>
 		<testsuite name="Less Template Companion">
 			<directory>./test/</directory>
+			<file>./test/lesstemplatecompanionTest.php</file>
 		</testsuite>
 	</testsuites>
 	<logging>
