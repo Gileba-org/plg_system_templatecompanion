@@ -2,7 +2,7 @@
 <phpunit colors="true">
 	<testsuites>
 		<testsuite name="Less Template Companion">
-			<directory>./tests/unit/</directory>
+			<directory>./test/</directory>
 		</testsuite>
 	</testsuites>
 	<logging>
