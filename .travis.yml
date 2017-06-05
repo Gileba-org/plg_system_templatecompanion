@@ -16,7 +16,7 @@ matrix:
 before_script:
 - phpenv config-rm xdebug.ini
 script:
-- phpunit --verbose --debug --configuration travisci-phpunit.xml
+- phpunit --verbose --debug --configuration travisci-phpunit.xml test/lesstemplatecompanionTest.php
 before_deploy:
 - cd ..
 - zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion
