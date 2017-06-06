@@ -16,11 +16,10 @@ matrix:
 before_script:
 - phpenv config-rm xdebug.ini
 script:
-- phpunit --configuration travisci-phpunit.xml --no-configuration tests
+- phpunit --configuration travisci-phpunit.xml
 before_deploy:
 - cd ..
-- zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion
-  -x \*.git\* *.gitattributes* \*tests\* *travisci-phpunit.xml* *.travis.yml* *plg_system_lesstemplatecompanion_updates.xml*
+- zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion/src -x \*.git\* *.gitattributes*
 deploy:
   provider: releases
   file:
