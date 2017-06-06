@@ -5,7 +5,7 @@ require_once('./src/lesstemplatecompanion.php');
 
 class plgSystemLessTemplateCompanionTest extends TestCase
 {
-	protected $plugin;
+	protected $plugin
 	
 	public function setup() {
 		$this->plugin = new plgSystemLessTemplateCompanion;
