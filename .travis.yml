@@ -19,6 +19,7 @@ script:
 - phpunit tests/lesstemplatecompanionTest.php
 before_deploy:
 - cd ..
+- git clone https://github.com/joomla/joomla-cms joomla-cms
 - zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion/src -x \*.git\* *.gitattributes*
 deploy:
   provider: releases
