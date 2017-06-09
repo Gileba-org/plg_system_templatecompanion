@@ -1,27 +1,39 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once('./src/lesstemplatecompanion.php');
+require_once('plg_system_less_template_companion/src/plgSystemLessTemplateCompanion.php');
 
-class plgSystemLessTemplateCompanionTest extends TestCase
+class plgSystemlessTemplateCompanionTest extends TestCaseDatabase
 {
 	protected $plugin;
 	
-	public function setup() {
-		$this->plugin = new plgSystemLessTemplateCompanion;
-		fwrite(STDERR, "Testing");
+	public function setUp() {
+		JFactory::$application = $this->getMockCmsApp();
+		JFactory::$session = $this->getMockSession();
+
+		/**
+		 * Create a mock dispatcher instance
+		 *
+		 * @var $dispatcher Mock_JEventDispatcher_f5646d4b e.g
+		 */
+		$dispatcher = TestCaseDatabase::getMockDispatcher();
+
+		$plugin = array(
+			'name'   => 'emailcloak',
+			'type'   => 'Content',
+			'params' => new \JRegistry
+		);
+
+		$this->plugin = new PlgSystemLessTemplateCompanion($dispatcher, $plugin);
 	}
 	
 	public function testSetLessVariables()
 	{
-		$test_array = array(
-			'ltc_color_main' => '#123456',
-			'color_link' => '#654321'
-		);
-
+		$test_array = array('ltc_main-color' => '#123456', 'test' => 'empty');
+		
 		$result_array = $this->plugin->setLessVariables($test_array);
-
-		$this->assertThat($result_array, $this->EqualTo(array('color_main' => '#123457')));
+		
+		$this->assertEquals($result_array , array('main-color' => '#123456'));
 	}
 }
 ?>
