@@ -17,7 +17,7 @@ before_script:
 - phpenv config-rm xdebug.ini
 - git clone https://github.com/joomla/joomla-cms joomla-cms
 script:
-- phpunit tests/lesstemplatecompanionTest.php --incude-path ../
+- phpunit tests/lesstemplatecompanionTest.php --include-path ../
 before_deploy:
 - cd ..
 - zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion/src -x \*.git\* *.gitattributes*
