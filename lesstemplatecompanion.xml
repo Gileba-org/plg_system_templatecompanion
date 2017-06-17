@@ -9,7 +9,7 @@
 	<authorEmail>info@gileba.be</authorEmail>
 	<authorUrl>www.gileba.be</authorUrl>
 	<version>0.1.0-beta.1</version>
-	<description>PLG_SYSTEM_LESS_TEMPLATE_COMPANION_XML_DESC</description>
+	<description>PLG_SYSTEM_LESSTEMPLATECOMPANION_XML_DESC</description>
 	<files>
 		<file plugin="lesstemplatecompanion">lesstemplatecompanion.php</file>
 	</files>
@@ -21,20 +21,20 @@
 		<fields name="params">
 			<fieldset name="basic">
 				<field name="mode" type="list"
-					description="PLG_SYSTEM_LESS_FIELD_MODE_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_MODE_LABEL"
+					description="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_MODE_DESC"
+					label="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_MODE_LABEL"
 					default="0"
 				>
-					<option value="0">PLG_SYSTEM_LESS_FIELD_MODE_FRONTEND</option>
-					<option value="1">PLG_SYSTEM_LESS_FIELD_MODE_ADMIN</option>
-					<option value="2">PLG_SYSTEM_LESS_FIELD_MODE_BOTH</option>
+					<option value="0">PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_MODE_FRONTEND</option>
+					<option value="1">PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_MODE_ADMIN</option>
+					<option value="2">PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_MODE_BOTH</option>
 				</field>
 				<field type="spacer" name="lessspacer" class="text"
-					label="PLG_SYSTEM_LESS_LESSSPACER"
+					label="PLG_SYSTEM_LESSTEMPLATECOMPANION_LESSSPACER"
 				/>
 				<field name="less_force" type="radio" class="btn-group btn-group-yesno"
-					description="PLG_SYSTEM_LESS_FIELD_FORCE_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_FORCE_LABEL"
+					description="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_FORCE_DESC"
+					label="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_FORCE_LABEL"
 					default="0"
 				>
 					<option value="0">JNO</option>
@@ -51,8 +51,8 @@
 					<option value="classic">PLG_SYSTEM_LESSTEMPLATECOMPANION_CLASSIC</option>
 				</field>
 				<field name="less_compress" type="radio" class="btn-group btn-group-yesno"
-					description="PLG_SYSTEM_LESS_FIELD_COMPRESSION_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_COMPRESSION_LABEL"
+					description="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_COMPRESSION_DESC"
+					label="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_COMPRESSION_LABEL"
 					default="0"
 				>
 					<option value="0">JNO</option>
