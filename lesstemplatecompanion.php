@@ -155,7 +155,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 				$formatter = new JLessFormatterJoomla;
 				$less->setFormatter($formatter);
 			default:
-				$less->setFormatter($this->params->get('less_compress'));
+				$less->setFormatter($this->params->get('less_formatter'));
 		}
 
 		$less->setVariables($this->setLessVariables($table->params->toArray()));
