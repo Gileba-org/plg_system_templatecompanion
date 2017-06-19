@@ -42,7 +42,7 @@ ini_set('precision', 14);
  */
 if (!defined('JPATH_TESTS'))
 {
-	define('JPATH_TESTS', realpath(dirname(dirname(__DIR__)) . '/joomla-cms/tests'));
+	define('JPATH_TESTS', realpath(dirname(dirname(__DIR__)) . '/joomla-cms/tests/unit'));
 }
 if (!defined('JPATH_TEST_DATABASE'))
 {
@@ -112,7 +112,7 @@ require_once JPATH_PLATFORM . '/import.legacy.php';
 require_once JPATH_LIBRARIES . '/cms.php';
 
 // Register the core Joomla test classes.
-JLoader::registerPrefix('Test', JPATH_TESTS . '/unit/core');
+JLoader::registerPrefix('Test', JPATH_TESTS . '/core');
 
 // Register the deprecation handler
 TestHelper::registerDeprecationHandler();
