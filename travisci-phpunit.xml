@@ -8,7 +8,4 @@
 	<logging>
 		<log type="coverage-text" target="php://stdout" lowUpperBound="35" highLowerBound="70"/>
 	</logging>
-	<php>
-		<includePath>/home/travis/build/Gileba/</includePath>
-	</php>
 </phpunit>
