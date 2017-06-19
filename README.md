@@ -15,7 +15,7 @@
 ---
 
 ## Minimum Requirements
-+ Joomla 3 (minor versions 4 and up) _(This plugin uses the JLess-class in Joomla, which was added in version 3.4 and will be removed from Joomla 4)_
++ Joomla 3 (minor versions 4 and up) _(This plugin uses the JLess-class in Joomla, which was added in version 3.4 and is marked to be removed from Joomla 4)_
 + A compatible template
 
 ---
