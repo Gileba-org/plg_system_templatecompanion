@@ -19,7 +19,7 @@ before_script:
 - git clone https://github.com/joomla/joomla-cms joomla-cms
 - phpunit --version
 script:
-- phpunit --configuration plg_system_lesstemplatecompanion/travisci-phpunit.xml --include-path joomla-cms/
+- phpunit --configuration plg_system_lesstemplatecompanion/travisci-phpunit.xml --include-path /home/travis/build/Gileba/
 before_deploy:
 - zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion/src -x \*.git\* *.gitattributes*
 deploy:
