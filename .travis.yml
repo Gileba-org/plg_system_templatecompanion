@@ -15,12 +15,12 @@ matrix:
   - php: nightly
 before_script:
 - phpenv config-rm xdebug.ini
+- cd ..
 - git clone https://github.com/joomla/joomla-cms joomla-cms
 - phpunit --version
 script:
-- phpunit tests/lesstemplatecompanionTest.php --include-path ../
+- phpunit --configuration plg_system_lesstemplatecompanion/travisci-phpunit.xml --include-path joomla-cms/
 before_deploy:
-- cd ..
 - zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion/src -x \*.git\* *.gitattributes*
 deploy:
   provider: releases
