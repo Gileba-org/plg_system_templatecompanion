@@ -12,6 +12,8 @@ env:
   - secure: QmP8JvySF1oHvmLHg7MUDbOhz8XqovyUapoaFteGXVz/tqz1exqJ4vZ3Xe/Wee6rIQVt5Y8deSGA3Cs2J3uUzZDWCewOcie7I1yF81hTgLO7bqpvxwssu66JWKxrZI1K+tIPemunhXPtjbg9fidQ5CXrUO69R+HVSwiKdGtomHONVUOnZ6YtZm+8qRBBQtwBmRkaSRop0nj2mMbxAjv3BlLmPBmxlDx4x/DPmSdDqS06CKv3MnwetETM3C4drllDogUkgM+cMctRObi3ptNwY43teRsQ34X2G1hvG1ZY3LPvORJL+e2kqfismVAQGrStVEo0R7ND15mo4XDZ0UU/dQOxKV3cGKnNPIQkM7oNVdbfTL9HlIQX4R5hknai46vBMEjMivWvIWbkj8apI6fO57WOKqYZE0i23vNH/sliEP0j51/bP/1GE+FFE6YLfjaJgFAau5Y04mWPC66CeVTjPVL+VeDsyl/ACUbGzcDOIxM9N7xd6DxOr8bz6R1cZesY2v+ts65irPy9rG61MRXt3uQ2/ALsEbX3f980Fy/4czM9lpOAK0RfRkpcUU369qFMj82SEUsQMc588mU8iRC380o8qp6lzj2mWNCz8KzB9sJXTXldiLfKSzSo2K0N7XGpo7DcctXNXijeiUok39C7oagI2o7TEw/32DKYBdBUPVc=
 matrix:
   allow_failures:
+  - php: 7.0
+  - php: 7.1
   - php: nightly
 before_script:
 - phpenv config-rm xdebug.ini
