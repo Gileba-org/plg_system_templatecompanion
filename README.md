@@ -41,6 +41,7 @@ When turned on, comments made in the source files (Less) will be transferred to 
 ---
 
 ## Template Developer Instructions
+#### Passing parameters
 The plugin only passes specific parameters into the Less-parser. If you want a template parameter to be parsed, you have to prefix it with 'ltc\_'. This prefix will be stripped from the name before adding it to the Less-parser.
 
 _Example_
@@ -51,3 +52,7 @@ will become
 ```LESS
 @color-main: #145CAE;
 ```
+
+#### File locations
+* The less file should be in template/less/template.less (include all imports in this file)
+* The final css file will be stored in template/css/template.css (add this folder to your template)
