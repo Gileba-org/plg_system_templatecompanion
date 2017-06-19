@@ -16,7 +16,6 @@ matrix:
 before_script:
 - phpenv config-rm xdebug.ini
 - git clone https://github.com/joomla/joomla-cms joomla-cms
-- phpunit --self-update
 - phpunit --version
 script:
 - phpunit tests/lesstemplatecompanionTest.php --include-path ../
