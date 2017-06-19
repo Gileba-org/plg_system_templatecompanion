@@ -5,7 +5,7 @@ require_once('plg_system_less_template_companion/src/plgSystemLessTemplateCompan
 
 class plgSystemlessTemplateCompanionTest extends TestCaseDatabase
 {
-	protected $plugin;
+	protected $class;
 	
 	public function setUp() {
 		JFactory::$application = $this->getMockCmsApp();
@@ -19,19 +19,19 @@ class plgSystemlessTemplateCompanionTest extends TestCaseDatabase
 		$dispatcher = TestCaseDatabase::getMockDispatcher();
 
 		$plugin = array(
-			'name'   => 'emailcloak',
-			'type'   => 'Content',
+			'name'   => 'lesstemplatecompanion',
+			'type'   => 'System',
 			'params' => new \JRegistry
 		);
 
-		$this->plugin = new PlgSystemLessTemplateCompanion($dispatcher, $plugin);
+		$this->class = new PlgSystemLessTemplateCompanion($dispatcher, $plugin);
 	}
 	
 	public function testSetLessVariables()
 	{
 		$test_array = array('ltc_main-color' => '#123456', 'test' => 'empty');
 		
-		$result_array = $this->plugin->setLessVariables($test_array);
+		$result_array = $this->class->setLessVariables($test_array);
 		
 		$this->assertEquals($result_array , array('main-color' => '#123456'));
 	}
