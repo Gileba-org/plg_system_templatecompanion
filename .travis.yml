@@ -16,10 +16,8 @@ matrix:
   - php: '7.1'
   - php: nightly
 before_script:
-- phpenv config-rm xdebug.ini
 - cd ..
 - git clone https://github.com/joomla/joomla-cms joomla-cms
-- phpunit --version
 script:
 - phpunit --configuration plg_system_lesstemplatecompanion/travisci-phpunit.xml
 before_deploy:
