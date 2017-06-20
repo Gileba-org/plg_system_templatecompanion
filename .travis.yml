@@ -20,7 +20,7 @@ before_script:
 - cd ..
 - git clone https://github.com/joomla/joomla-cms joomla-cms
 script:
-- plg_system_lesstemplatecompanion/vendor/bin/phpunit --configuration plg_system_lesstemplatecompanion/travisci-phpunit.xml --include-path plg_system_lesstemplatecompanion/vendor/bin/phpunit
+- plg_system_lesstemplatecompanion/vendor/bin/phpunit --configuration plg_system_lesstemplatecompanion/travisci-phpunit.xml --include-path ./plg_system_lesstemplatecompanion/vendor/bin/phpunit
 before_deploy:
 - zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion/src -x \*.git\* *.gitattributes*
 deploy:
