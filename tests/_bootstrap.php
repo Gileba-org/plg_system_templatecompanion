@@ -105,6 +105,8 @@ if (!defined('JDEBUG'))
 	define('JDEBUG', false);
 }
 
+@include __DIR__ . '/../vendor/autoload.php';
+
 // Import the platform in legacy mode.
 require_once JPATH_PLATFORM . '/import.legacy.php';
 
