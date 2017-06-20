@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		System Plugin - Less Template Companion, an automatic Less compiler for developers and users
- * @version		0.1.0-beta.1
+ * @version		1.0.0-rc.1
  * @author		Gijs Lamon
  * @copyright	(C) 2017 Gijs Lamon
  * @license		GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
@@ -155,7 +155,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 				$formatter = new JLessFormatterJoomla;
 				$less->setFormatter($formatter);
 			default:
-				$less->setFormatter($this->params->get('less_compress'));
+				$less->setFormatter($this->params->get('less_formatter'));
 		}
 
 		$less->setVariables($this->setLessVariables($table->params->toArray()));

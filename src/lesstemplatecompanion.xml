@@ -1,62 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension
-	version="3.2" type="plugin" group="system" method="upgrade">
+	version="3.4" type="plugin" group="system" method="upgrade">
 	<name>System - Less Template Companion</name>
 	<author>Gijs Lamon</author>
-	<creationDate>2017-03-06</creationDate>
+	<creationDate>2017-06-17</creationDate>
 	<copyright>(C) 2017 Gijs Lamon</copyright>
 	<license>GNU General Public License v3; see	LICENSE</license>
 	<authorEmail>info@gileba.be</authorEmail>
 	<authorUrl>www.gileba.be</authorUrl>
-	<version>0.1.0-beta.1</version>
-	<description>PLG_SYSTEM_LESS_TEMPLATE_COMPANION_XML_DESC</description>
+	<version>1.0.0-rc.1</version>
+	<description>PLG_SYSTEM_LESSTEMPLATECOMPANION_XML_DESC</description>
 	<files>
 		<file plugin="lesstemplatecompanion">lesstemplatecompanion.php</file>
 	</files>
 	<languages>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.ini</language>
 		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.sys.ini</language>
+		<language tag="nl-BE">language/nl-BE/nl-BE.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="nl-BE">language/nl-BE/nl-BE.plg_system_lesstemplatecompanion.sys.ini</language>
+		<language tag="nl-NL">language/nl-NL/nl-NL.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="nl-NL">language/nl-NL/nl-NL.plg_system_lesstemplatecompanion.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
 				<field name="mode" type="list"
-					description="PLG_SYSTEM_LESS_FIELD_MODE_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_MODE_LABEL"
+					description="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_MODE_DESC"
+					label="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_MODE_LABEL"
 					default="0"
 				>
-					<option value="0">PLG_SYSTEM_LESS_FIELD_MODE_FRONTEND</option>
-					<option value="1">PLG_SYSTEM_LESS_FIELD_MODE_ADMIN</option>
-					<option value="2">PLG_SYSTEM_LESS_FIELD_MODE_BOTH</option>
+					<option value="0">PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_MODE_FRONTEND</option>
+					<option value="1">PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_MODE_ADMIN</option>
+					<option value="2">PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_MODE_BOTH</option>
 				</field>
 				<field type="spacer" name="lessspacer" class="text"
-					label="PLG_SYSTEM_LESS_LESSSPACER"
+					label="PLG_SYSTEM_LESSTEMPLATECOMPANION_LESSSPACER"
 				/>
 				<field name="less_force" type="radio" class="btn-group btn-group-yesno"
-					description="PLG_SYSTEM_LESS_FIELD_FORCE_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_FORCE_LABEL"
+					description="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_FORCE_DESC"
+					label="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_FORCE_LABEL"
 					default="0"
 				>
 					<option value="0">JNO</option>
 					<option value="1">JYES</option>
 				</field>
-				<field name="less_comments" type="radio" class="btn-group"
+				<field name="less_comments" type="radio" class="btn-group btn-group-yesno"
+					description="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_COMMENTS_DESC"
+					label="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_COMMENTS_LABEL"
+					default="0"
+				>
+					<option value="0">JNO</option>
+					<option value="1">JYES</option>
+				</field>
+				<field name="less_formatter" type="radio" class="btn-group"
 					description="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_FORMATTER_DESC"
 					label="PLG_SYSTEM_LESSTEMPLATECOMPANION_FIELD_FORMATTER_LABEL"
 					default="compressed"
 				>
-					<option value="compressed">PLG_SYSTEM_LESSTEMPLATECOMPANION_COMPRESS</option>
+					<option value="compressed">PLG_SYSTEM_LESSTEMPLATECOMPANION_COMPRESSED</option>
 					<option value="joomla">PLG_SYSTEM_LESSTEMPLATECOMPANION_JOOMLA</option>
 					<option value="lessjs">PLG_SYSTEM_LESSTEMPLATECOMPANION_LESSJS</option>
 					<option value="classic">PLG_SYSTEM_LESSTEMPLATECOMPANION_CLASSIC</option>
-				</field>
-				<field name="less_compress" type="radio" class="btn-group btn-group-yesno"
-					description="PLG_SYSTEM_LESS_FIELD_COMPRESSION_DESC"
-					label="PLG_SYSTEM_LESS_FIELD_COMPRESSION_LABEL"
-					default="0"
-				>
-					<option value="0">JNO</option>
-					<option value="1">JYES</option>
 				</field>
 			</fieldset>
 		</fields>
