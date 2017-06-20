@@ -27,13 +27,34 @@ class plgSystemlessTemplateCompanionTest extends TestCaseDatabase
 		$this->class = new PlgSystemLessTemplateCompanion($dispatcher, $plugin);
 	}
 	
-	public function testSetLessVariables()
+	// Test correct behavior of setLessVariable on an array with a single correct element
+	public function testParseVariable()
 	{
-		$test_array = array('ltc_main-color' => '#123456', 'test' => 'empty');
-		
+		$test_array = array('ltc_main-color' => '#123456');
 		$result_array = $this->class->setLessVariables($test_array);
-		
 		$this->assertEquals($result_array , array('main-color' => '#123456'));
 	}
+
+	// Test correct behavior of setLessVariable on an array with a single incorrect element
+	public function testDoNotParseVariable()
+	{
+		$test_array = array('main-color' => '#123456', 'test' => 'empty');
+		$result_array = $this->class->setLessVariables($test_array);
+		$this->assertEquals($result_array , array());
+	}
+	
+	// Test correct behavior of setLessVariable on an array with different elements
+	public function testOnlyParseValidVariables() {
+		$test_array = array('ltc_main-color' => '#123456', 'test' => 'empty');
+		$result_array = $this->class->setLessVariables($test_array);		
+		$this->assertEquals($result_array , array('main-color' => '#123456'));
+	}
+	
+	// Test correct behavior of onBeforeRender
+	public function testOnBeforeRender() {
+		$this->assertFalse($this->class->onBeforeRender());
+	}
+
+
 }
 ?>
