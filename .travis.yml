@@ -16,6 +16,7 @@ matrix:
   - php: '7.1'
   - php: nightly
 before_script:
+- composer install
 - cd ..
 - git clone https://github.com/joomla/joomla-cms joomla-cms
 script:
