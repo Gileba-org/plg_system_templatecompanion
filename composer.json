@@ -1,0 +1,7 @@
+{
+	"require-dev": {
+		"phpunit/php-code-coverage": "^2.1",
+		"phpunit/phpunit": "^4.8.35",
+		"phpunit/dbunit": "~1.3"
+	}
+}

@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit bootstrap="tests/_bootstrap.php" colors="true">
-  <logging>
-    <log type="coverage-text" target="php://stdout" lowUpperBound="35" highLowerBound="70"/>
-  </logging>
+	<testsuites>
+		<testsuite name="plugin">
+			<directory>tests</directory>
+		</testsuite>
+	</testsuites>
+	<logging>
+		<log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+	</logging>
+	<filter>
+		<whitelist processUncoveredFilesFromWhitelist="true" addUncoveredFilesFromWhitelist="true">
+			<directory suffix=".php">src</directory>
+		</whitelist>
+	</filter>
 </phpunit>

@@ -14,13 +14,13 @@ matrix:
   allow_failures:
   - php: nightly
 before_script:
-- phpenv config-rm xdebug.ini
-script:
-- phpunit --configuration travisci-phpunit.xml --no-configuration tests
-before_deploy:
+- composer install
 - cd ..
-- zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion
-  -x \*.git\* *.gitattributes* \*tests\* *travisci-phpunit.xml* *.travis.yml* *plg_system_lesstemplatecompanion_updates.xml*
+- git clone https://github.com/joomla/joomla-cms joomla-cms
+script:
+- plg_system_lesstemplatecompanion/vendor/bin/phpunit --configuration plg_system_lesstemplatecompanion/travisci-phpunit.xml --include-path ./plg_system_lesstemplatecompanion/vendor/bin/phpunit
+before_deploy:
+- zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion/src -x \*.git\* *.gitattributes*
 deploy:
   provider: releases
   file:
