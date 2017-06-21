@@ -7,7 +7,10 @@ class plgSystemlessTemplateCompanionTest extends TestCaseDatabase
 {
 	protected $class;
 	
-	public function setUp() {
+	/**
+     * @covers plgSystemLessTemplateCompanion::__construct
+     */
+    public function setUp() {
 		JFactory::$application = $this->getMockCmsApp();
 		JFactory::$session = $this->getMockSession();
 
