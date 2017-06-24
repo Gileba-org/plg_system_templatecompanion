@@ -30,7 +30,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	protected $app;
 	protected $lessFile		= '';
 	protected $cssFile		= '';
-	protected $cacheFile		= '';
+	protected $cacheFile	= '';
 	protected $templatePath	= '';
 
 	/**
@@ -56,8 +56,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$tmpPath = $config->get('tmp_path');
 
 		//load chached file
-		$this->cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . "_" . basename($this->lessFile) . ".cache";
-
+		$this->cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . '_' . basename($this->lessFile) . '.cache';
 	}
 
 	/**
@@ -76,18 +75,24 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		if (is_readable($this->lessFile))
 		{
 			// Check run conditions
-			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0')) return false;
+			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0')) 
+			{
+				return 'wrong mode';  // Return value is only used for unit testing
+			}
 
 			try
 			{
-  			$this->compileLess($table, $this->params->get('less_force'));
+  				$this->compileLess($table, $this->params->get('less_force'));
+  				return true;
 			}
 			catch (Exception $e)
 			{
 				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
+				return 'error'; // Return value is only used for unit testing
 			}
 		}
-		return false;
+		
+		return 'unreadable'; // Return value is only used for unit testing
 	}
 
 	/**
@@ -160,12 +165,12 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		$less->setVariables($this->setLessVariables($table->params->toArray()));
 
-		$less->addImportDir($this->templatePath . "/less");
+		$less->addImportDir($this->templatePath . '/less');
 		
 		//compile cache file
 		$newCache = $less->cachedCompile($cache, $force);
 
-		if (!is_array($cache) || $newCache["updated"] > $cache["updated"])
+		if (!is_array($cache) || $newCache['updated'] > $cache['updated'])
 		{
 			JFile::write($this->cacheFile, serialize($newCache));
 			JFile::write($this->cssFile, $newCache['compiled']);
