@@ -66,7 +66,18 @@ class PlgSystemLessTemplateCompanionTest extends TestCaseDatabase
 	
 	// Test correct behavior of onBeforeRender
 	public function testOnBeforeRenderWithoutWriteAccess() {
+		// Joomla standard testcase doesn't have a template set as default, so onBeforeRender cannot find the less source file
 		$this->assertEquals('unreadable', $this->class->onBeforeRender());
+		
+		/*
+		 * TODO
+		 *  1. Make sure test does get access to a less file
+		 *  2. Switch modes and check versus client/admin
+		 *  3. Check if CompileLess succeeds
+		 *  4. Make sure CompileLess fails
+		 *
+		 */
+		
 	}
 }
 ?>

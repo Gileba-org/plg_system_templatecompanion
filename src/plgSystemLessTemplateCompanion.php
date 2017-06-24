@@ -114,11 +114,13 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	public function onExtensionAfterSave($context, $table, $isNew)
 	{
 		if ($isNew === false) {
+			// Return value is only used for unit testing
 			return 'no new data';
 		}
 		
 		if ($context != 'com_templates.style' && $context != 'com_advancedtemplates.style')
 		{
+			// Return value is only used for unit testing
 			return 'wrong context';
 		}
 		
@@ -129,6 +131,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		// Only proceed if the template wants to specify less variables
 		if (!$table->params->get('useLESS'))
 		{
+			// Return value is only used for unit testing
 			return 'useLESS not implemented';
 		}
 
@@ -138,15 +141,20 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			try
 			{
   				$this->compileLess($table, true);
+
+				// Return value is only used for unit testing
   				return true;
 			}
 			catch (Exception $e)
 			{
 				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
+
+				// Return value is only used for unit testing
 				return 'lessphp error';
 			}
 		}
 		
+		// Return value is only used for unit testing
 		return 'unreadable';
 	}
 	
