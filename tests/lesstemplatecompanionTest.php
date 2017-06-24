@@ -43,18 +43,30 @@ class plgSystemlessTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals($result_array , array());
 	}
 	
+	// Test correct behavior of setLessVariable on an array with different elements, including slashes
+	public function testQuoteSlash() {
+		$test_array = array('ltc_slash' => 'Joomla/Test');
+		$result_array = $this->class->setLessVariables($test_array);		
+		$this->assertEquals($result_array , array('slash' => '"Joomla/Test"'));
+	}
+	
+	// Test correct behavior of setLessVariable on an array with different elements, including slashes
+	public function testQuoteEmptyValue() {
+		$test_array = array('ltc_empty' => '');
+		$result_array = $this->class->setLessVariables($test_array);		
+		$this->assertEquals($result_array , array('empty' => '""'));
+	}
+	
 	// Test correct behavior of setLessVariable on an array with different elements
 	public function testOnlyParseValidVariables() {
-		$test_array = array('ltc_main-color' => '#123456', 'test' => 'empty');
+		$test_array = array('ltc_main-color' => '#123456', 'test' => 'empty', 'ltc_slash' => 'Joomla/Test', 'ltc_empty' => '');
 		$result_array = $this->class->setLessVariables($test_array);		
-		$this->assertEquals($result_array , array('main-color' => '#123456'));
+		$this->assertEquals($result_array , array('main-color' => '#123456', 'slash' => '"Joomla/Test"', 'empty' => '""'));
 	}
 	
 	// Test correct behavior of onBeforeRender
-	public function testOnBeforeRender() {
-		$this->assertFalse($this->class->onBeforeRender());
+	public function testOnBeforeRenderWithoutWriteAccess() {
+		$this->assertEquals('unreadable', $this->class->onBeforeRender());
 	}
-
-
 }
 ?>
