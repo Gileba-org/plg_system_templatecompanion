@@ -76,22 +76,28 @@ class plgSystemLessTemplateCompanion extends JPlugin
 			// Check run conditions
 			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0')) 
 			{
-				return 'wrong mode';  // Return value is only used for unit testing
+				// Return value is only used for unit testing
+				return 'wrong mode'; 
 			}
 
 			try
 			{
   				$this->compileLess($table, $this->params->get('less_force'));
+
+				// Return value is only used for unit testing
   				return true;
 			}
 			catch (Exception $e)
 			{
 				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
-				return 'error'; // Return value is only used for unit testing
+
+				// Return value is only used for unit testing
+				return 'error'; 
 			}
 		}
 		
-		return 'unreadable'; // Return value is only used for unit testing
+		// Return value is only used for unit testing
+		return 'unreadable'; 
 	}
 
 	/**
@@ -113,15 +119,17 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		
 		if ($context != 'com_templates.style' && $context != 'com_advancedtemplates.style')
 		{
-			return;
+			return 'wrong context';
 		}
 		
-		if (!(is_object($table->params))) $table->params = $this->paramsToObject($table->params);
+		if (!(is_object($table->params))) {
+			$table->params = $this->paramsToObject($table->params);
+		}
 
 		// Only proceed if the template wants to specify less variables
 		if (!$table->params->get('useLESS'))
 		{
-			return;
+			return 'useLESS not implemented';
 		}
 
 		// Check if .less file exists and is readable
@@ -129,13 +137,17 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		{
 			try
 			{
-  			$this->compileLess($table, true);
+  				$this->compileLess($table, true);
+  				return true;
 			}
 			catch (Exception $e)
 			{
 				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
+				return 'lessphp error';
 			}
 		}
+		
+		return 'unreadable';
 	}
 	
 	/**
