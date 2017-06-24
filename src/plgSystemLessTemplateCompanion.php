@@ -64,12 +64,11 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 */
 	public function onBeforeRender()
 	{
-		$table		= $this->app->getTemplate(true);
-
 		// 0 = frontend only
 		// 1 = backend only
 		// 2 = front + backend
-		$mode = $this->params->get('mode', 0);
+		$mode 		= $this->params->get('mode', 0);
+		$table		= $this->app->getTemplate(true);
 
 		//check if .less file exists and is readable
 		if (is_readable($this->lessFile))
