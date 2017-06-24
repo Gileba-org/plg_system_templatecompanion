@@ -107,6 +107,10 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 */
 	public function onExtensionAfterSave($context, $table, $isNew)
 	{
+		if ($isNew === false) {
+			return 'no new data';
+		}
+		
 		if ($context != 'com_templates.style' && $context != 'com_advancedtemplates.style')
 		{
 			return;
