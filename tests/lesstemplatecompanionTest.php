@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 require_once('plg_system_lesstemplatecompanion/src/plgSystemLessTemplateCompanion.php');
 
-class plgSystemlessTemplateCompanionTest extends TestCaseDatabase
+class PlgSystemLessTemplateCompanionTest extends TestCaseDatabase
 {
 	protected $class;
 	
