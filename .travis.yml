@@ -21,7 +21,7 @@ before_script:
 script:
 - plg_system_lesstemplatecompanion/vendor/bin/phpunit --configuration plg_system_lesstemplatecompanion/travisci-phpunit.xml --include-path ./plg_system_lesstemplatecompanion/vendor/bin/phpunit
 after_script:
-- php vendor/bin/codacycoverage clover /tmp/coverage.xml
+- php plg_system_lesstemplatecompanion/vendor/bin/codacycoverage clover /tmp/coverage.xml
 before_deploy:
 - zip -r plg_system_lesstemplatecompanion.zip plg_system_lesstemplatecompanion/src -x \*.git\* *.gitattributes*
 deploy:
