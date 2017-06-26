@@ -36,7 +36,7 @@ When turned on, comments made in the source files (Less) will be transferred to 
   + Compressed: Compresses the .css output for minimal load time and file size
   + Joomla: The standard Joomla formatter
   + Less JS: Same style used in LESS for JavaScript
-  + Classic: Lessphp’s original formatter"
+  + Classic: Lessphp’s original formatter
 
 ---
 
