@@ -1,7 +1,11 @@
 <?php
-	defined('_JEXEC') or die;
 
-class PlgSystemLesstemplatecompanionInstallerScript {
+defined('_JEXEC') or die;
+
+class plgSystemLessTemplateCompanionInstallerScript {
+
+	public $db              = null;
+
 	/**
 	 * method to run after an install/update/uninstall method
 	 *
@@ -10,6 +14,8 @@ class PlgSystemLesstemplatecompanionInstallerScript {
 	public function postflight($route, $parent) 
 	{
 		if ($route === 'install') {
+			$this->db      = JFactory::getDbo();
+
 			$query = $this->db->getQuery(true)
 				->update('#__extensions')
 				->set($this->db->quoteName('enabled') . ' = 1')
