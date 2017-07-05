@@ -30,7 +30,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	protected $app;
 	protected $lessFile		= '';
 	protected $cssFile		= '';
-	protected $cacheFile		= '';
+	protected $cacheFile	= '';
 	protected $templatePath	= '';
 
 	/**
@@ -56,8 +56,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		$tmpPath = $config->get('tmp_path');
 
 		//load chached file
-		$this->cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . "_" . basename($this->lessFile) . ".cache";
-
+		$this->cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . '_' . basename($this->lessFile) . '.cache';
 	}
 
 	/**
@@ -65,29 +64,40 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 */
 	public function onBeforeRender()
 	{
-		$table		= $this->app->getTemplate(true);
-
 		// 0 = frontend only
 		// 1 = backend only
 		// 2 = front + backend
-		$mode = $this->params->get('mode', 0);
+		$mode 		= $this->params->get('mode', 0);
+		$table		= $this->app->getTemplate(true);
 
 		//check if .less file exists and is readable
 		if (is_readable($this->lessFile))
 		{
 			// Check run conditions
-			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0')) return false;
+			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0')) 
+			{
+				// Return value is only used for unit testing
+				return 'wrong mode'; 
+			}
 
 			try
 			{
-  			$this->compileLess($table, $this->params->get('less_force'));
+  				$this->compileLess($table, $this->params->get('less_force'));
+
+				// Return value is only used for unit testing
+  				return true;
 			}
 			catch (Exception $e)
 			{
 				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
+
+				// Return value is only used for unit testing
+				return 'error'; 
 			}
 		}
-		return false;
+		
+		// Return value is only used for unit testing
+		return 'unreadable'; 
 	}
 
 	/**
@@ -103,17 +113,26 @@ class plgSystemLessTemplateCompanion extends JPlugin
 	 */
 	public function onExtensionAfterSave($context, $table, $isNew)
 	{
-		if ($context != 'com_templates.style' && $context != 'com_advancedtemplates.style')
-		{
-			return;
+		if ($isNew === false) {
+			// Return value is only used for unit testing
+			return 'no new data';
 		}
 		
-		if (!(is_object($table->params))) $table->params = $this->paramsToObject($table->params);
+		if ($context != 'com_templates.style' && $context != 'com_advancedtemplates.style')
+		{
+			// Return value is only used for unit testing
+			return 'wrong context';
+		}
+		
+		if (!(is_object($table->params))) {
+			$table->params = $this->paramsToObject($table->params);
+		}
 
 		// Only proceed if the template wants to specify less variables
 		if (!$table->params->get('useLESS'))
 		{
-			return;
+			// Return value is only used for unit testing
+			return 'useLESS not implemented';
 		}
 
 		// Check if .less file exists and is readable
@@ -121,13 +140,22 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		{
 			try
 			{
-  			$this->compileLess($table, true);
+  				$this->compileLess($table, true);
+
+				// Return value is only used for unit testing
+  				return true;
 			}
 			catch (Exception $e)
 			{
 				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
+
+				// Return value is only used for unit testing
+				return 'lessphp error';
 			}
 		}
+		
+		// Return value is only used for unit testing
+		return 'unreadable';
 	}
 	
 	/**
@@ -160,12 +188,12 @@ class plgSystemLessTemplateCompanion extends JPlugin
 
 		$less->setVariables($this->setLessVariables($table->params->toArray()));
 
-		$less->addImportDir($this->templatePath . "/less");
+		$less->addImportDir($this->templatePath . '/less');
 		
 		//compile cache file
 		$newCache = $less->cachedCompile($cache, $force);
 
-		if (!is_array($cache) || $newCache["updated"] > $cache["updated"])
+		if (!is_array($cache) || $newCache['updated'] > $cache['updated'])
 		{
 			JFile::write($this->cacheFile, serialize($newCache));
 			JFile::write($this->cssFile, $newCache['compiled']);

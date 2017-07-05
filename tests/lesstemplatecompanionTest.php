@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 require_once('plg_system_lesstemplatecompanion/src/lesstemplatecompanion.php');
 
-class plgSystemlessTemplateCompanionTest extends TestCaseDatabase
+class PlgSystemLessTemplateCompanionTest extends TestCaseDatabase
 {
 	protected $class;
 	
@@ -30,31 +30,54 @@ class plgSystemlessTemplateCompanionTest extends TestCaseDatabase
 	// Test correct behavior of setLessVariable on an array with a single correct element
 	public function testParseVariable()
 	{
-		$test_array = array('ltc_main-color' => '#123456');
-		$result_array = $this->class->setLessVariables($test_array);
-		$this->assertEquals($result_array , array('main-color' => '#123456'));
+		$testArray = array('ltc_main-color' => '#123456');
+		$resultArray = $this->class->setLessVariables($testArray);
+		$this->assertEquals($resultArray , array('main-color' => '#123456'));
 	}
 
 	// Test correct behavior of setLessVariable on an array with a single incorrect element
 	public function testDoNotParseVariable()
 	{
-		$test_array = array('main-color' => '#123456', 'test' => 'empty');
-		$result_array = $this->class->setLessVariables($test_array);
-		$this->assertEquals($result_array , array());
+		$testArray = array('main-color' => '#123456', 'test' => 'empty');
+		$resultArray = $this->class->setLessVariables($testArray);
+		$this->assertEquals($resultArray , array());
+	}
+	
+	// Test correct behavior of setLessVariable on an array with different elements, including slashes
+	public function testQuoteSlash() {
+		$testArray = array('ltc_slash' => 'Joomla/Test');
+		$resultArray = $this->class->setLessVariables($testArray);		
+		$this->assertEquals($resultArray , array('slash' => '"Joomla/Test"'));
+	}
+	
+	// Test correct behavior of setLessVariable on an array with different elements, including slashes
+	public function testQuoteEmptyValue() {
+		$testArray = array('ltc_empty' => '');
+		$resultArray = $this->class->setLessVariables($testArray);		
+		$this->assertEquals($resultArray , array('empty' => '""'));
 	}
 	
 	// Test correct behavior of setLessVariable on an array with different elements
 	public function testOnlyParseValidVariables() {
-		$test_array = array('ltc_main-color' => '#123456', 'test' => 'empty');
-		$result_array = $this->class->setLessVariables($test_array);		
-		$this->assertEquals($result_array , array('main-color' => '#123456'));
+		$testArray = array('ltc_main-color' => '#123456', 'test' => 'empty', 'ltc_slash' => 'Joomla/Test', 'ltc_empty' => '');
+		$resultArray = $this->class->setLessVariables($testArray);		
+		$this->assertEquals($resultArray , array('main-color' => '#123456', 'slash' => '"Joomla/Test"', 'empty' => '""'));
 	}
 	
 	// Test correct behavior of onBeforeRender
-	public function testOnBeforeRender() {
-		$this->assertFalse($this->class->onBeforeRender());
+	public function testOnBeforeRenderWithoutWriteAccess() {
+		// Joomla standard testcase doesn't have a template set as default, so onBeforeRender cannot find the less source file
+		$this->assertEquals('unreadable', $this->class->onBeforeRender());
+		
+		/*
+		 * TODO
+		 *  1. Make sure test does get access to a less file
+		 *  2. Switch modes and check versus client/admin
+		 *  3. Check if CompileLess succeeds
+		 *  4. Make sure CompileLess fails
+		 *
+		 */
+		
 	}
-
-
 }
 ?>
