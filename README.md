@@ -10,7 +10,6 @@
 ## Installation
 1. Download the plugin from the [release section](https://github.com/Gileba/ttactua_mobile/releases)
 2. Install with the Joomla Installer
-3. Activate the plugin in the Joomla backend.
 
 ---
 
@@ -29,7 +28,7 @@ This plugin compiles .less-files into a site specific .css-file on two occasions
 
 ## Options
 #### Force compilation
-When turned on, every page load will trigger a new compilation. It is recommended to only activate this option when developping a new template.
+When turned on, every page load will trigger a new compilation. It is recommended to only activate this option when developing a new template.
 #### Preserve comments
 When turned on, comments made in the source files (Less) will be transferred to the destination file (CSS).
 #### Format
