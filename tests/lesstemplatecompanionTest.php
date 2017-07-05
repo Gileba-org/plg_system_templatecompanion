@@ -1,7 +1,7 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once('plg_system_lesstemplatecompanion/src/plgSystemLessTemplateCompanion.php');
+require_once('plg_system_lesstemplatecompanion/src/lesstemplatecompanion.php');
 
 class PlgSystemLessTemplateCompanionTest extends TestCaseDatabase
 {

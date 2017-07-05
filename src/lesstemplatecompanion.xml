@@ -65,6 +65,7 @@
 			</fieldset>
 		</fields>
 	</config>
+	<scriptfile>script.php</scriptfile>
 	<updateservers>
 		<server
 			type="extension"
