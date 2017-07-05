@@ -8,7 +8,7 @@
 	<license>GNU General Public License v3; see	LICENSE</license>
 	<authorEmail>info@gileba.be</authorEmail>
 	<authorUrl>www.gileba.be</authorUrl>
-	<version>1.0.0-rc.1</version>
+	<version>1.0.0-rc.2</version>
 	<description>PLG_SYSTEM_LESSTEMPLATECOMPANION_XML_DESC</description>
 	<files>
 		<file plugin="lesstemplatecompanion">lesstemplatecompanion.php</file>
