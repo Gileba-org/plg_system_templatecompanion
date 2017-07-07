@@ -40,6 +40,13 @@ When turned on, comments made in the source files (Less) will be transferred to 
 ---
 
 ## Template Developer Instructions
+#### Marking your template compatible with the plugin
+The plugin only processes the parameters if it gets a sign that the template is compatible. You do that by adding the hidden parameter "useLESS" to the template manifest file.
+
+```XML
+<field name="useLESS" type="hidden" default="true" />
+```
+
 #### Passing parameters
 The plugin only passes specific parameters into the Less-parser. If you want a template parameter to be parsed, you have to prefix it with 'ltc\_'. This prefix will be stripped from the name before adding it to the Less-parser.
 
