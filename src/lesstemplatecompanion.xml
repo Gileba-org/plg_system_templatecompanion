@@ -13,13 +13,13 @@
 	<files>
 		<file plugin="lesstemplatecompanion">lesstemplatecompanion.php</file>
 	</files>
-	<languages>
-		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.ini</language>
-		<language tag="en-GB">en-GB.plg_system_lesstemplatecompanion.sys.ini</language>
-		<language tag="nl-BE">language/nl-BE/nl-BE.plg_system_lesstemplatecompanion.ini</language>
-		<language tag="nl-BE">nl-BE.plg_system_lesstemplatecompanion.sys.ini</language>
-		<language tag="nl-NL">language/nl-NL/nl-NL.plg_system_lesstemplatecompanion.ini</language>
-		<language tag="nl-NL">nl-NL.plg_system_lesstemplatecompanion.sys.ini</language>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_lesstemplatecompanion.sys.ini</language>
+		<language tag="nl-BE">nl-BE/nl-BE.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="nl-BE">nl-BE/nl-BE.plg_system_lesstemplatecompanion.sys.ini</language>
+		<language tag="nl-NL">nl-NL/nl-NL.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="nl-NL">nl-NL/nl-NL.plg_system_lesstemplatecompanion.sys.ini</language>
 	</languages>
 	<config>
 		<fields name="params">
