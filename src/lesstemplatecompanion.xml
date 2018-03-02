@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension
 	version="3.4" type="plugin" group="system" method="upgrade">
-	<name>System - Less Template Companion</name>
+	<name>PLG_SYSTEM_LESSTEMPLATECOMPANION</name>
 	<author>Gijs Lamon</author>
 	<creationDate>2017-06-17</creationDate>
 	<copyright>(C) 2017-2018 Gijs Lamon</copyright>
@@ -10,17 +10,18 @@
 	<authorUrl>www.gileba.be</authorUrl>
 	<version>1.0.0-rc.2</version>
 	<description>PLG_SYSTEM_LESSTEMPLATECOMPANION_XML_DESC</description>
-	<files>
-		<file plugin="lesstemplatecompanion">lesstemplatecompanion.php</file>
-	</files>
-	<languages>
-		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.ini</language>
-		<language tag="en-GB">language/en-GB/en-GB.plg_system_lesstemplatecompanion.sys.ini</language>
-		<language tag="nl-BE">language/nl-BE/nl-BE.plg_system_lesstemplatecompanion.ini</language>
-		<language tag="nl-BE">language/nl-BE/nl-BE.plg_system_lesstemplatecompanion.sys.ini</language>
-		<language tag="nl-NL">language/nl-NL/nl-NL.plg_system_lesstemplatecompanion.ini</language>
-		<language tag="nl-NL">language/nl-NL/nl-NL.plg_system_lesstemplatecompanion.sys.ini</language>
+	<languages folder="language">
+		<language tag="en-GB">en-GB/en-GB.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="en-GB">en-GB/en-GB.plg_system_lesstemplatecompanion.sys.ini</language>
+		<language tag="nl-BE">nl-BE/nl-BE.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="nl-BE">nl-BE/nl-BE.plg_system_lesstemplatecompanion.sys.ini</language>
+		<language tag="nl-NL">nl-NL/nl-NL.plg_system_lesstemplatecompanion.ini</language>
+		<language tag="nl-NL">nl-NL/nl-NL.plg_system_lesstemplatecompanion.sys.ini</language>
 	</languages>
+	<files>
+		<filename plugin="lesstemplatecompanion">lesstemplatecompanion.php</filename>
+		<folder>language</folder>
+	</files>
 	<config>
 		<fields name="params">
 			<fieldset name="basic">
