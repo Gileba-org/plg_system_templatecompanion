@@ -12,6 +12,7 @@
 	<description>PLG_SYSTEM_LESSTEMPLATECOMPANION_XML_DESC</description>
 	<files>
 		<file plugin="lesstemplatecompanion">lesstemplatecompanion.php</file>
+		<folder>language</folder>
 	</files>
 	<languages folder="language">
 		<language tag="en-GB">en-GB/en-GB.plg_system_lesstemplatecompanion.ini</language>
