@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <updates>
 	<update>
-		<name>Less Template Companion (Plugin)</name>
-		<description>Less Template Companion (Plugin)</description>
-		<element>lesstemplatecompanion</element>
+		<name>Template Companion (Plugin)</name>
+		<description>Template Companion (Plugin)</description>
+		<element>templatecompanion</element>
 		<type>plugin</type>
 		<folder>system</folder>
 		<version>1.0.0-rc.2</version>

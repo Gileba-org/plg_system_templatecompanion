@@ -2,7 +2,7 @@
 
 defined('_JEXEC') or die;
 
-class plgSystemLessTemplateCompanionInstallerScript {
+class plgSystemTemplateCompanionInstallerScript {
 
 	public $db              = null;
 
@@ -20,7 +20,7 @@ class plgSystemLessTemplateCompanionInstallerScript {
 				->update('#__extensions')
 				->set($this->db->quoteName('enabled') . ' = 1')
 				->where($this->db->quoteName('type') . ' = ' . $this->db->quote('plugin'))
-				->where($this->db->quoteName('element') . ' = ' . $this->db->quote('lesstemplatecompanion'))
+				->where($this->db->quoteName('element') . ' = ' . $this->db->quote('templatecompanion'))
 				->where($this->db->quoteName('folder') . ' = ' . $this->db->quote('system'));
 				$this->db->setQuery($query);
 				$this->db->execute();
