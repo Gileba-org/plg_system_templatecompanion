@@ -1,14 +1,14 @@
-# Less Template Companion
+# Template Companion
 ##### A Joomla 3 Plugin
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6ec183dc0cc24de5bbadf081863e4a60)](https://www.codacy.com/app/Gileba/plg_system_lesstemplatecompanion?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Gileba/plg_system_lesstemplatecompanion&amp;utm_campaign=Badge_Grade)
-[![Build Status](https://travis-ci.org/Gileba/plg_system_lesstemplatecompanion.svg?branch=master)](https://travis-ci.org/Gileba/plg_system_lesstemplatecompanion)
-[![CLA assistant](https://cla-assistant.io/readme/badge/Gileba/plg_system_lesstemplatecompanion)](https://cla-assistant.io/Gileba/plg_system_lesstemplatecompanion)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6ec183dc0cc24de5bbadf081863e4a60)](https://www.codacy.com/app/Gileba/plg_system_templatecompanion?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Gileba/plg_system_templatecompanion&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/Gileba/plg_system_templatecompanion.svg?branch=master)](https://travis-ci.org/Gileba/plg_system_templatecompanion)
+[![CLA assistant](https://cla-assistant.io/readme/badge/Gileba/plg_system_templatecompanion)](https://cla-assistant.io/Gileba/plg_system_templatecompanion)
 [![SemVer](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
 
 ---
 
 ## Installation
-1. Download the plugin from the [release section](https://github.com/Gileba/ttactua_mobile/releases)
+1. Download the plugin from the [release section](https://github.com/Gileba/plg_system_templatecompanion/releases)
 2. Install with the Joomla Installer
 
 ---
@@ -48,11 +48,11 @@ The plugin only processes the parameters if it gets a sign that the template is 
 ```
 
 #### Passing parameters
-The plugin only passes specific parameters into the Less-parser. If you want a template parameter to be parsed, you have to prefix it with 'ltc\_'. This prefix will be stripped from the name before adding it to the Less-parser.
+The plugin only passes specific parameters into the Less-parser. If you want a template parameter to be parsed, you have to prefix it with 'tc\_'. This prefix will be stripped from the name before adding it to the Less-parser.
 
 _Example_
 ```XML
-<field name="ltc_color-main" type="color" default="#145CAE" label="TPL_GILEBA_COLOR_MAIN" description="TPL_GILEBA_COLOR_MAIN_DESC" />
+<field name="tc_color-main" type="color" default="#145CAE" label="TPL_XYZ_COLOR_MAIN" description="TPL_XYZ_COLOR_MAIN_DESC" />
 ```
 will become
 ```LESS

@@ -1,6 +1,6 @@
 <?php
 /**
- * @package		System Plugin - Less Template Companion, an automatic Less compiler for developers and users
+ * @package		System Plugin - Template Companion, an automatic Less compiler for developers and users
  * @version		1.0.0-rc.2
  * @author		Gijs Lamon
  * @copyright	(C) 2017-2018 Gijs Lamon
@@ -20,7 +20,7 @@ defined('_JEXEC') or die();
  *
  * @since  1.0
  */
-class plgSystemLessTemplateCompanion extends JPlugin
+class plgSystemTemplateCompanion extends JPlugin
 {
 	/**
 	 * @var $app
@@ -252,7 +252,7 @@ class plgSystemLessTemplateCompanion extends JPlugin
 		foreach ($params as $key => $value)
 		{
 			// Select useful params
-			if (substr( $key, 0, 4 ) === "ltc_") {
+			if (substr( $key, 0, 3 ) === "tc_") {
 				// Trim whitespaces
 				$value = trim($value);
 			

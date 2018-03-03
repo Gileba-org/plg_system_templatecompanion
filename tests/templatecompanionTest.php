@@ -1,9 +1,9 @@
 <?php
 use PHPUnit\Framework\TestCase;
 
-require_once('plg_system_lesstemplatecompanion/src/lesstemplatecompanion.php');
+require_once('plg_system_templatecompanion/src/templatecompanion.php');
 
-class PlgSystemLessTemplateCompanionTest extends TestCaseDatabase
+class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 {
 	protected $class;
 	
@@ -19,18 +19,18 @@ class PlgSystemLessTemplateCompanionTest extends TestCaseDatabase
 		$dispatcher = TestCaseDatabase::getMockDispatcher();
 
 		$plugin = array(
-			'name'   => 'lesstemplatecompanion',
+			'name'   => 'templatecompanion',
 			'type'   => 'System',
 			'params' => new \JRegistry
 		);
 
-		$this->class = new PlgSystemLessTemplateCompanion($dispatcher, $plugin);
+		$this->class = new PlgSystemTemplateCompanion($dispatcher, $plugin);
 	}
 	
 	// Test correct behavior of setLessVariable on an array with a single correct element
 	public function testParseVariable()
 	{
-		$testArray = array('ltc_main-color' => '#123456');
+		$testArray = array('tc_main-color' => '#123456');
 		$resultArray = $this->class->setLessVariables($testArray);
 		$this->assertEquals($resultArray , array('main-color' => '#123456'));
 	}
@@ -45,21 +45,21 @@ class PlgSystemLessTemplateCompanionTest extends TestCaseDatabase
 	
 	// Test correct behavior of setLessVariable on an array with different elements, including slashes
 	public function testQuoteSlash() {
-		$testArray = array('ltc_slash' => 'Joomla/Test');
+		$testArray = array('tc_slash' => 'Joomla/Test');
 		$resultArray = $this->class->setLessVariables($testArray);		
 		$this->assertEquals($resultArray , array('slash' => '"Joomla/Test"'));
 	}
 	
 	// Test correct behavior of setLessVariable on an array with different elements, including slashes
 	public function testQuoteEmptyValue() {
-		$testArray = array('ltc_empty' => '');
+		$testArray = array('tc_empty' => '');
 		$resultArray = $this->class->setLessVariables($testArray);		
 		$this->assertEquals($resultArray , array('empty' => '""'));
 	}
 	
 	// Test correct behavior of setLessVariable on an array with different elements
 	public function testOnlyParseValidVariables() {
-		$testArray = array('ltc_main-color' => '#123456', 'test' => 'empty', 'ltc_slash' => 'Joomla/Test', 'ltc_empty' => '');
+		$testArray = array('tc_main-color' => '#123456', 'test' => 'empty', 'tc_slash' => 'Joomla/Test', 'tc_empty' => '');
 		$resultArray = $this->class->setLessVariables($testArray);		
 		$this->assertEquals($resultArray , array('main-color' => '#123456', 'slash' => '"Joomla/Test"', 'empty' => '""'));
 	}
