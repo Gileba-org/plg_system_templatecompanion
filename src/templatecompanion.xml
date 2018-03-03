@@ -3,12 +3,12 @@
 	version="3.4" type="plugin" group="system" method="upgrade">
 	<name>PLG_SYSTEM_TEMPLATECOMPANION</name>
 	<author>Gijs Lamon</author>
-	<creationDate>2017-06-17</creationDate>
+	<creationDate>2018-03-03</creationDate>
 	<copyright>(C) 2017-2018 Gijs Lamon</copyright>
 	<license>GNU General Public License v3; see	LICENSE</license>
 	<authorEmail>info@gileba.be</authorEmail>
 	<authorUrl>www.gileba.be</authorUrl>
-	<version>1.0.0-rc.2</version>
+	<version>1.0.0-rc.3</version>
 	<description>PLG_SYSTEM_TEMPLATECOMPANION_XML_DESC</description>
 	<languages folder="language">
 		<language tag="en-GB">en-GB/en-GB.plg_system_templatecompanion.ini</language>
