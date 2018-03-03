@@ -269,7 +269,7 @@ class plgSystemTemplateCompanion extends JPlugin
 				}
 				
 				// Add variable to return list
-				$lessParams[substr($key, 4, strlen($key))] = $value;
+				$lessParams[substr($key, 3, strlen($key))] = $value;
 			}
 		}
 		
