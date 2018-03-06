@@ -9,7 +9,7 @@
 	<authorEmail>info@gileba.be</authorEmail>
 	<authorUrl>www.gileba.be</authorUrl>
 	<version>1.0.0-rc.3</version>
-	<description>PLG_SYSTEM_TEMPLATECOMPANION_XML_DESC</description>
+	<description>Less plugin to compile changed .less files to .css files automatically and includes variables from template.</description>
 	<languages folder="language">
 		<language tag="en-GB">en-GB/en-GB.plg_system_templatecompanion.ini</language>
 		<language tag="en-GB">en-GB/en-GB.plg_system_templatecompanion.sys.ini</language>
