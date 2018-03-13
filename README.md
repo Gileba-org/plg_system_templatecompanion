@@ -20,9 +20,10 @@
 ---
 
 ## Usage
-This plugin compiles .less-files into a site specific .css-file on two occasions
+This plugin compiles .less-files into a site specific .css-file on three occasions
 1. On saving a compatible Joomla Template, a new .css-file will always be created saving all specific parameters as less-variables
 2. Any time a .less-file was changed on the server, a new .css-file will be created taking those changes into account. The template parameters are implemented as well.
+3. You can force a compile by removing the destination .css-file.
 
 ---
 
