@@ -188,7 +188,7 @@ class plgSystemTemplateCompanion extends JPlugin
 		//compile cache file
 		$newCache = $less->cachedCompile($cache, $force);
 
-		if (!is_array($cache) || $newCache['updated'] > $cache['updated'])
+		if (!is_array($cache) || $newCache['updated'] > $cache['updated'] || !file_exists($this->cssFile))
 		{
 			JFile::write($this->cacheFile, serialize($newCache));
 			JFile::write($this->cssFile, $newCache['compiled']);
