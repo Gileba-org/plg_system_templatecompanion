@@ -240,7 +240,7 @@ class plgSystemTemplateCompanion extends JPlugin
 	 *
 	 * @since   1.0
 	 */
-	public function setLessVariables($params) {
+	private function setLessVariables($params) {
 		$lessParams = array();
 		
 		// Sanitising params for LESS

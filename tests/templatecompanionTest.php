@@ -27,11 +27,29 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->class = new PlgSystemTemplateCompanion($dispatcher, $plugin);
 	}
 	
+	/**
+	 * Call protected/private method of a class.
+	 *
+	 * @param object &$object    Instantiated object that we will run method on.
+	 * @param string $methodName Method name to call
+	 * @param array  $parameters Array of parameters to pass into method.
+	 *
+	 * @return mixed Method return.
+	*/
+	public function invokeMethod(&$object, $methodName, array $parameters = array())
+	{
+		$reflection = new \ReflectionClass(get_class($object));
+		$method = $reflection->getMethod($methodName);
+		$method->setAccessible(true);
+
+		return $method->invokeArgs($object, $parameters);
+	}
+
 	// Test correct behavior of setLessVariable on an array with a single correct element
 	public function testParseVariable()
 	{
 		$testArray = array('tc_main-color' => '#123456');
-		$resultArray = $this->class->setLessVariables($testArray);
+		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
 		$this->assertEquals($resultArray , array('main-color' => '#123456'));
 	}
 
