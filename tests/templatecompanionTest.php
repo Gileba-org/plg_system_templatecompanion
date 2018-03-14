@@ -104,16 +104,16 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		
 	public function testOnExtensionAfterSaveNotReadableComTemplates(){
 		$testContext = 'com_templates.style';
-		$table = (object) array('params' => 'useLESS');
+		$table = (object) array('params' => array('useLESS' => true));
 		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
-		$this->assertEquals($result, 'useLESS not implemented');
+		$this->assertEquals($result, 'unreadable');
 	}
 		
 	public function testOnExtensionAfterSaveNotReadableComAdvancedTemplates(){
 		$testContext = 'com_advancedtemplates.style';
-		$table = (object) array('params' => 'useLESS');
+		$table = (object) array('params' => array('useLESS' => true));
 		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
-		$this->assertEquals($result, 'useLESS not implemented');
+		$this->assertEquals($result, 'unreadable');
 	}
 		
 	// Test correct behavior of onBeforeRender
