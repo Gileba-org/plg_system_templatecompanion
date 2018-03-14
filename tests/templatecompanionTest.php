@@ -27,11 +27,29 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->class = new PlgSystemTemplateCompanion($dispatcher, $plugin);
 	}
 	
+	/**
+	 * Call protected/private method of a class.
+	 *
+	 * @param object &$object    Instantiated object that we will run method on.
+	 * @param string $methodName Method name to call
+	 * @param array  $parameters Array of parameters to pass into method.
+	 *
+	 * @return mixed Method return.
+	*/
+	public function invokeMethod(&$object, $methodName, array $parameters = array())
+	{
+		$reflection = new \ReflectionClass(get_class($object));
+		$method = $reflection->getMethod($methodName);
+		$method->setAccessible(true);
+
+		return $method->invokeArgs($object, $parameters);
+	}
+
 	// Test correct behavior of setLessVariable on an array with a single correct element
 	public function testParseVariable()
 	{
 		$testArray = array('tc_main-color' => '#123456');
-		$resultArray = $this->class->setLessVariables($testArray);
+		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
 		$this->assertEquals($resultArray , array('main-color' => '#123456'));
 	}
 
@@ -39,28 +57,28 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 	public function testDoNotParseVariable()
 	{
 		$testArray = array('main-color' => '#123456', 'test' => 'empty');
-		$resultArray = $this->class->setLessVariables($testArray);
+		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
 		$this->assertEquals($resultArray , array());
 	}
 	
 	// Test correct behavior of setLessVariable on an array with different elements, including slashes
 	public function testQuoteSlash() {
 		$testArray = array('tc_slash' => 'Joomla/Test');
-		$resultArray = $this->class->setLessVariables($testArray);		
+		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
 		$this->assertEquals($resultArray , array('slash' => '"Joomla/Test"'));
 	}
 	
 	// Test correct behavior of setLessVariable on an array with different elements, including slashes
 	public function testQuoteEmptyValue() {
 		$testArray = array('tc_empty' => '');
-		$resultArray = $this->class->setLessVariables($testArray);		
+		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
 		$this->assertEquals($resultArray , array('empty' => '""'));
 	}
 	
 	// Test correct behavior of setLessVariable on an array with different elements
 	public function testOnlyParseValidVariables() {
 		$testArray = array('tc_main-color' => '#123456', 'test' => 'empty', 'tc_slash' => 'Joomla/Test', 'tc_empty' => '');
-		$resultArray = $this->class->setLessVariables($testArray);		
+		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
 		$this->assertEquals($resultArray , array('main-color' => '#123456', 'slash' => '"Joomla/Test"', 'empty' => '""'));
 	}
 	
