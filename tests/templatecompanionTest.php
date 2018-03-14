@@ -88,6 +88,16 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals($result, 'wrong context');
 	}
 		
+	public function testOnExtensionAfterSaveNotUseLess(){
+		$testContext = 'com_templates.style';
+		$result = $this->class->onExtensionAfterSave($testContext, array(), false));
+		$this->assertEquals($result, 'useLESS not implemented');
+
+		$testContext = 'com_advancedtemplates.style';
+		$result = $this->class->onExtensionAfterSave($testContext, array(), false));
+		$this->assertEquals($result, 'useLESS not implemented');
+	}
+		
 	// Test correct behavior of onBeforeRender
 	public function testOnBeforeRenderWithoutWriteAccess() {
 		// Joomla standard testcase doesn't have a template set as default, so onBeforeRender cannot find the less source file
