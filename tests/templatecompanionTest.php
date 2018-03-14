@@ -104,14 +104,14 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		
 	public function testOnExtensionAfterSaveNotReadableComTemplates(){
 		$testContext = 'com_templates.style';
-		$table = (object) array('params' => '({"useLESS":"true"})');
+		$table = (object) array('params' => '{"useLESS":"true"}');
 		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
 		$this->assertEquals($result, 'unreadable');
 	}
 		
 	public function testOnExtensionAfterSaveNotReadableComAdvancedTemplates(){
 		$testContext = 'com_advancedtemplates.style';
-		$table = (object) array('params' => '({"useLESS":"true"})');
+		$table = (object) array('params' => '{"useLESS":"true"}');
 		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
 		$this->assertEquals($result, 'unreadable');
 	}
