@@ -82,6 +82,12 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals($resultArray , array('main-color' => '#123456', 'slash' => '"Joomla/Test"', 'empty' => '""'));
 	}
 	
+	public function testOnExtensionAfterSaveWrongContext(){
+		$testContext = 'com_content';
+		$result = $this->invokeMethod($this->class, 'onExtensionAfterSave', array($testContext, array(), false));
+		$this->assertEquals($result, 'wrong context');
+	}
+		
 	// Test correct behavior of onBeforeRender
 	public function testOnBeforeRenderWithoutWriteAccess() {
 		// Joomla standard testcase doesn't have a template set as default, so onBeforeRender cannot find the less source file
