@@ -84,7 +84,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 	
 	public function testOnExtensionAfterSaveWrongContext(){
 		$testContext = 'com_content';
-		$result = $this->invokeMethod($this->class, 'onExtensionAfterSave', array($testContext, array(), false));
+		$result = $this->class->onExtensionAfterSave($testContext, array(), false));
 		$this->assertEquals($result, 'wrong context');
 	}
 		
