@@ -90,14 +90,14 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		
 	public function testOnExtensionAfterSaveNotUseLessComTemplates(){
 		$testContext = 'com_templates.style';
-		$table->params = '';
+		$table = (object) array($params = '');
 		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
 		$this->assertEquals($result, 'useLESS not implemented');
 	}
 		
 	public function testOnExtensionAfterSaveNotUseLessComAdvancedTemplates(){
 		$testContext = 'com_advancedtemplates.style';
-		$table->params = '';
+		$table = (object) array($params = '');
 		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
 		$this->assertEquals($result, 'useLESS not implemented');
 	}
