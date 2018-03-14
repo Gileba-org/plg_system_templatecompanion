@@ -82,6 +82,40 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals($resultArray , array('main-color' => '#123456', 'slash' => '"Joomla/Test"', 'empty' => '""'));
 	}
 	
+	public function testOnExtensionAfterSaveWrongContext(){
+		$testContext = 'com_content';
+		$result = $this->class->onExtensionAfterSave($testContext, array(), false);
+		$this->assertEquals($result, 'wrong context');
+	}
+		
+	public function testOnExtensionAfterSaveNotUseLessComTemplates(){
+		$testContext = 'com_templates.style';
+		$table = (object) array('params' => '');
+		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
+		$this->assertEquals($result, 'useLESS not implemented');
+	}
+		
+	public function testOnExtensionAfterSaveNotUseLessComAdvancedTemplates(){
+		$testContext = 'com_advancedtemplates.style';
+		$table = (object) array('params' => '');
+		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
+		$this->assertEquals($result, 'useLESS not implemented');
+	}
+		
+	public function testOnExtensionAfterSaveNotReadableComTemplates(){
+		$testContext = 'com_templates.style';
+		$table = (object) array('params' => '{"useLESS":"true"}');
+		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
+		$this->assertEquals($result, 'unreadable');
+	}
+		
+	public function testOnExtensionAfterSaveNotReadableComAdvancedTemplates(){
+		$testContext = 'com_advancedtemplates.style';
+		$table = (object) array('params' => '{"useLESS":"true"}');
+		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
+		$this->assertEquals($result, 'unreadable');
+	}
+		
 	// Test correct behavior of onBeforeRender
 	public function testOnBeforeRenderWithoutWriteAccess() {
 		// Joomla standard testcase doesn't have a template set as default, so onBeforeRender cannot find the less source file
