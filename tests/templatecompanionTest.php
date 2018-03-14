@@ -84,17 +84,17 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 	
 	public function testOnExtensionAfterSaveWrongContext(){
 		$testContext = 'com_content';
-		$result = $this->class->onExtensionAfterSave($testContext, array(), false));
+		$result = $this->class->onExtensionAfterSave($testContext, array(), false);
 		$this->assertEquals($result, 'wrong context');
 	}
 		
 	public function testOnExtensionAfterSaveNotUseLess(){
 		$testContext = 'com_templates.style';
-		$result = $this->class->onExtensionAfterSave($testContext, array(), false));
+		$result = $this->class->onExtensionAfterSave($testContext, array(), false);
 		$this->assertEquals($result, 'useLESS not implemented');
 
 		$testContext = 'com_advancedtemplates.style';
-		$result = $this->class->onExtensionAfterSave($testContext, array(), false));
+		$result = $this->class->onExtensionAfterSave($testContext, array(), false);
 		$this->assertEquals($result, 'useLESS not implemented');
 	}
 		
