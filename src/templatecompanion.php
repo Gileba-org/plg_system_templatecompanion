@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		System Plugin - Template Companion, an automatic Less compiler for developers and users
- * @version		1.0.0-rc.4
+ * @version		1.0.0
  * @author		Gijs Lamon
  * @copyright	(C) 2017-2018 Gijs Lamon
  * @license		GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
