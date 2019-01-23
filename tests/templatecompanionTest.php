@@ -68,7 +68,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals($resultArray , array('slash' => '"Joomla/Test"'));
 	}
 	
-	// Test correct behavior of setLessVariable on an array with different elements, including slashes
+	// Test correct behavior of setLessVariable on an array with a single empty element
 	public function testQuoteEmptyValue() {
 		$testArray = array('tc_empty' => '');
 		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
