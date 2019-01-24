@@ -68,7 +68,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals($resultArray , array('slash' => '"Joomla/Test"'));
 	}
 	
-	// Test correct behavior of setLessVariable on an array with different elements, including slashes
+	// Test correct behavior of setLessVariable on an array with a single empty element
 	public function testQuoteEmptyValue() {
 		$testArray = array('tc_empty' => '');
 		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
@@ -82,12 +82,14 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals($resultArray , array('main-color' => '#123456', 'slash' => '"Joomla/Test"', 'empty' => '""'));
 	}
 	
+	// Test correct behavior of onExtensionAfterSave in a Wrong Context
 	public function testOnExtensionAfterSaveWrongContext(){
 		$testContext = 'com_content';
 		$result = $this->class->onExtensionAfterSave($testContext, array(), false);
 		$this->assertEquals($result, 'wrong context');
 	}
 		
+	// Test correct behavior of onExtensionAfterSave without the parameter useLESS in the context com_templates.style
 	public function testOnExtensionAfterSaveNotUseLessComTemplates(){
 		$testContext = 'com_templates.style';
 		$table = (object) array('params' => '');
@@ -95,6 +97,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals($result, 'useLESS not implemented');
 	}
 		
+	// Test correct behavior of onExtensionAfterSave without the parameter useLESS in the context com_advancedtemplates.style
 	public function testOnExtensionAfterSaveNotUseLessComAdvancedTemplates(){
 		$testContext = 'com_advancedtemplates.style';
 		$table = (object) array('params' => '');
@@ -102,6 +105,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals($result, 'useLESS not implemented');
 	}
 		
+	// Test correct behavior of onExtensionAfterSave when the lessFile is not readable  in the context com_templates.style
 	public function testOnExtensionAfterSaveNotReadableComTemplates(){
 		$testContext = 'com_templates.style';
 		$table = (object) array('params' => '{"useLESS":"true"}');
@@ -109,6 +113,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals($result, 'unreadable');
 	}
 		
+	// Test correct behavior of onExtensionAfterSave when the lessFile is not readable in the context com_advancedtemplates.style
 	public function testOnExtensionAfterSaveNotReadableComAdvancedTemplates(){
 		$testContext = 'com_advancedtemplates.style';
 		$table = (object) array('params' => '{"useLESS":"true"}');
