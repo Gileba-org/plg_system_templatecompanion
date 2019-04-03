@@ -2,7 +2,8 @@
 
 defined('_JEXEC') or die;
 
-class plgSystemTemplateCompanionInstallerScript {
+class plgSystemTemplateCompanionInstallerScript
+{
 
 	public $db              = null;
 
@@ -11,7 +12,7 @@ class plgSystemTemplateCompanionInstallerScript {
 	 *
 	 * @return void
 	 */
-	public function postflight($route, $parent) 
+	public function postflight($route, $parent)
 	{
 		if ($route === 'install') {
 			$this->db      = JFactory::getDbo();

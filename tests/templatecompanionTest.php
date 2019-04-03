@@ -6,8 +6,9 @@ require_once('plg_system_templatecompanion/src/templatecompanion.php');
 class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 {
 	protected $class;
-	
-    public function setUp() {
+
+	public function setUp()
+	{
 		JFactory::$application = $this->getMockCmsApp();
 		JFactory::$session = $this->getMockSession();
 
@@ -26,7 +27,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 
 		$this->class = new PlgSystemTemplateCompanion($dispatcher, $plugin);
 	}
-	
+
 	/**
 	 * Call protected/private method of a class.
 	 *
@@ -35,7 +36,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 	 * @param array  $parameters Array of parameters to pass into method.
 	 *
 	 * @return mixed Method return.
-	*/
+	 */
 	public function invokeMethod(&$object, $methodName, array $parameters = array())
 	{
 		$reflection = new \ReflectionClass(get_class($object));
@@ -50,7 +51,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 	{
 		$testArray = array('tc_main-color' => '#123456');
 		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
-		$this->assertEquals($resultArray , array('main-color' => '#123456'));
+		$this->assertEquals($resultArray, array('main-color' => '#123456'));
 	}
 
 	// Test correct behavior of setLessVariable on an array with a single incorrect element
@@ -58,74 +59,83 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 	{
 		$testArray = array('main-color' => '#123456', 'test' => 'empty');
 		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
-		$this->assertEquals($resultArray , array());
+		$this->assertEquals($resultArray, array());
 	}
-	
+
 	// Test correct behavior of setLessVariable on an array with different elements, including slashes
-	public function testQuoteSlash() {
+	public function testQuoteSlash()
+	{
 		$testArray = array('tc_slash' => 'Joomla/Test');
 		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
-		$this->assertEquals($resultArray , array('slash' => '"Joomla/Test"'));
+		$this->assertEquals($resultArray, array('slash' => '"Joomla/Test"'));
 	}
-	
+
 	// Test correct behavior of setLessVariable on an array with a single empty element
-	public function testQuoteEmptyValue() {
+	public function testQuoteEmptyValue()
+	{
 		$testArray = array('tc_empty' => '');
 		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
-		$this->assertEquals($resultArray , array('empty' => '""'));
+		$this->assertEquals($resultArray, array('empty' => '""'));
 	}
-	
+
 	// Test correct behavior of setLessVariable on an array with different elements
-	public function testOnlyParseValidVariables() {
+	public function testOnlyParseValidVariables()
+	{
 		$testArray = array('tc_main-color' => '#123456', 'test' => 'empty', 'tc_slash' => 'Joomla/Test', 'tc_empty' => '');
 		$resultArray = $this->invokeMethod($this->class, 'setLessVariables', array($testArray));
-		$this->assertEquals($resultArray , array('main-color' => '#123456', 'slash' => '"Joomla/Test"', 'empty' => '""'));
+		$this->assertEquals($resultArray, array('main-color' => '#123456', 'slash' => '"Joomla/Test"', 'empty' => '""'));
 	}
-	
+
 	// Test correct behavior of onExtensionAfterSave in a Wrong Context
-	public function testOnExtensionAfterSaveWrongContext(){
+	public function testOnExtensionAfterSaveWrongContext()
+	{
 		$testContext = 'com_content';
 		$result = $this->class->onExtensionAfterSave($testContext, array(), false);
 		$this->assertEquals($result, 'wrong context');
 	}
-		
+
 	// Test correct behavior of onExtensionAfterSave without the parameter useLESS in the context com_templates.style
-	public function testOnExtensionAfterSaveNotUseLessComTemplates(){
+	public function testOnExtensionAfterSaveNotUseLessComTemplates()
+	{
 		$testContext = 'com_templates.style';
 		$table = (object) array('params' => '');
 		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
 		$this->assertEquals($result, 'useLESS not implemented');
 	}
-		
+
 	// Test correct behavior of onExtensionAfterSave without the parameter useLESS in the context com_advancedtemplates.style
-	public function testOnExtensionAfterSaveNotUseLessComAdvancedTemplates(){
+	public function testOnExtensionAfterSaveNotUseLessComAdvancedTemplates()
+	{
 		$testContext = 'com_advancedtemplates.style';
 		$table = (object) array('params' => '');
 		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
 		$this->assertEquals($result, 'useLESS not implemented');
 	}
-		
+
 	// Test correct behavior of onExtensionAfterSave when the lessFile is not readable  in the context com_templates.style
-	public function testOnExtensionAfterSaveNotReadableComTemplates(){
+	public function testOnExtensionAfterSaveNotReadableComTemplates()
+	{
 		$testContext = 'com_templates.style';
 		$table = (object) array('params' => '{"useLESS":"true"}');
 		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
 		$this->assertEquals($result, 'unreadable');
 	}
-		
+
 	// Test correct behavior of onExtensionAfterSave when the lessFile is not readable in the context com_advancedtemplates.style
-	public function testOnExtensionAfterSaveNotReadableComAdvancedTemplates(){
+	public function testOnExtensionAfterSaveNotReadableComAdvancedTemplates()
+	{
 		$testContext = 'com_advancedtemplates.style';
 		$table = (object) array('params' => '{"useLESS":"true"}');
 		$result = $this->class->onExtensionAfterSave($testContext, $table, false);
 		$this->assertEquals($result, 'unreadable');
 	}
-		
+
 	// Test correct behavior of onBeforeRender
-	public function testOnBeforeRenderWithoutWriteAccess() {
+	public function testOnBeforeRenderWithoutWriteAccess()
+	{
 		// Joomla standard testcase doesn't have a template set as default, so onBeforeRender cannot find the less source file
 		$this->assertEquals('unreadable', $this->class->onBeforeRender());
-		
+
 		/*
 		 * TODO
 		 *  1. Make sure test does get access to a less file
@@ -134,7 +144,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		 *  4. Make sure CompileLess fails
 		 *
 		 */
-		
+
 	}
 }
-?>
+

@@ -74,30 +74,30 @@ class plgSystemTemplateCompanion extends JPlugin
 		if (is_readable($this->lessFile))
 		{
 			// Check run conditions
-			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0')) 
+			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0'))
 			{
 				// Return value is only used for unit testing
-				return 'wrong mode'; 
+				return 'wrong mode';
 			}
 
 			try
 			{
-  				$this->compileLess($table, $this->params->get('less_force'));
+				$this->compileLess($table, $this->params->get('less_force'));
 
 				// Return value is only used for unit testing
-  				return true;
+				return true;
 			}
 			catch (Exception $e)
 			{
 				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
 
 				// Return value is only used for unit testing
-				return 'error'; 
+				return 'error';
 			}
 		}
-		
+
 		// Return value is only used for unit testing
-		return 'unreadable'; 
+		return 'unreadable';
 	}
 
 	/**
@@ -118,7 +118,7 @@ class plgSystemTemplateCompanion extends JPlugin
 			// Return value is only used for unit testing
 			return 'wrong context';
 		}
-		
+
 		if (!(is_object($table->params))) {
 			$table->params = $this->paramsToObject($table->params);
 		}
@@ -135,10 +135,10 @@ class plgSystemTemplateCompanion extends JPlugin
 		{
 			try
 			{
-  				$this->compileLess($table, true);
+				$this->compileLess($table, true);
 
 				// Return value is only used for unit testing
-  				return true;
+				return true;
 			}
 			catch (Exception $e)
 			{
@@ -148,11 +148,11 @@ class plgSystemTemplateCompanion extends JPlugin
 				return 'lessphp error';
 			}
 		}
-		
+
 		// Return value is only used for unit testing
 		return 'unreadable';
 	}
-	
+
 	/**
 	 * Compile .less files
 	 *
@@ -171,7 +171,7 @@ class plgSystemTemplateCompanion extends JPlugin
 
 		// Preserve comments
 		$less->setPreserveComments($this->params->get('less_comments'));
-		
+
 		// Formatter
 		switch ($this->params->get('less_compress')) {
 			case 'Joomla':
@@ -184,7 +184,7 @@ class plgSystemTemplateCompanion extends JPlugin
 		$less->setVariables($this->setLessVariables($table->params->toArray()));
 
 		$less->addImportDir($this->templatePath . '/less');
-		
+
 		//compile cache file
 		$newCache = $less->cachedCompile($cache, $force);
 
@@ -215,7 +215,7 @@ class plgSystemTemplateCompanion extends JPlugin
 
 		return $params;
 	}
-	
+
 	private function getCache()
 	{
 		if (file_exists($this->cacheFile))
@@ -226,11 +226,13 @@ class plgSystemTemplateCompanion extends JPlugin
 				$cache = $tmpCache;
 				return $cache;
 			}
+
 			return $this->lessFile;
 		}
+
 		return $this->lessFile;
 	}
-	
+
 	/**
 	 * Convert the params to an object
 	 *
@@ -240,9 +242,10 @@ class plgSystemTemplateCompanion extends JPlugin
 	 *
 	 * @since   1.0
 	 */
-	private function setLessVariables($params) {
+	private function setLessVariables($params)
+	{
 		$lessParams = array();
-		
+
 		// Sanitising params for LESS
 		foreach ($params as $key => $value)
 		{
@@ -250,24 +253,24 @@ class plgSystemTemplateCompanion extends JPlugin
 			if (substr( $key, 0, 3 ) === "tc_") {
 				// Trim whitespaces
 				$value = trim($value);
-			
+
 				// Adding quotes around variable so it's threaten as string if a slash is in it.
 				if (strpos($value, '/') !== false)
 				{
 					$value = '"' . $value . '"';
 				}
-				
+
 				// Quoting empty values as they break the compiler
 				if ($value == '')
 				{
 					$value = '""';
 				}
-				
+
 				// Add variable to return list
 				$lessParams[substr($key, 3, strlen($key))] = $value;
 			}
 		}
-		
+
 		return $lessParams;
 	}
 }
