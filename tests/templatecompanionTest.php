@@ -5,6 +5,9 @@ require_once('plg_system_templatecompanion/src/templatecompanion.php');
 
 class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 {
+	/**
+		@var		$class	The test class
+	*/
 	protected $class;
 	
     public function setUp() {

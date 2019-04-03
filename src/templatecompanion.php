@@ -20,23 +20,34 @@ defined('_JEXEC') or die();
  *
  * @since  1.0
  */
-class plgSystemTemplateCompanion extends JPlugin
+class PlgSystemTemplateCompanion extends JPlugin
 {
 	/**
-	 * @var $app
-	 * @var $lessFile	Origin file
-	 * @var $cssFile	Destination file
+	 * @var	$app
 	 */
 	protected $app;
+	/**
+	 * @var	$lessFile			Origin file
+	 */
 	protected $lessFile		= '';
+	/**
+	 * @var	$cssFile				Destination file
+	 */
 	protected $cssFile		= '';
-	protected $cacheFile	= '';
+	/**
+	 * @var	$cacheFile			Cache file to check for differences
+	 */
+	protected $cacheFile		= '';
+	/**
+	 * @var	$templatePath		Path of the template
+	 */
 	protected $templatePath	= '';
 
 	/**
 	 * override constructor to load classes as soon as possible
-	 * @param $subject
-	 * @param $config
+	 *
+	 * @param	$subject
+	 * @param	$config
 	 */
 	public function __construct(&$subject, $config)
 	{
@@ -44,10 +55,10 @@ class plgSystemTemplateCompanion extends JPlugin
 		parent::__construct($subject, $config);
 
 		$client = $this->app->isClient('site') ? JPATH_SITE : JPATH_ADMINISTRATOR;
-		$this->templatePath = $client . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
+		$this->templatePath	= $client . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
 
-		$this->lessFile     = $this->templatePath . 'less/template.less';
-		$this->cssFile 		= $this->templatePath . 'css/template.css';
+		$this->lessFile		= $this->templatePath . 'less/template.less';
+		$this->cssFile		= $this->templatePath . 'css/template.css';
 
 		// load config file
 		$config = JFactory::getConfig();
@@ -247,7 +258,7 @@ class plgSystemTemplateCompanion extends JPlugin
 		foreach ($params as $key => $value)
 		{
 			// Select useful params
-			if (substr( $key, 0, 3 ) === "tc_") {
+			if (substr($key, 0, 3) === "tc_") {
 				// Trim whitespaces
 				$value = trim($value);
 			
