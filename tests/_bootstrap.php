@@ -102,7 +102,7 @@ if (!defined('JPATH_THEMES')) {
 
 if (!defined('JDEBUG')) {
 	define('JDEBUG', false);
-	}
+}
 
 @include realpath(dirname(__DIR__) . '/vendor/autoload.php');
 
