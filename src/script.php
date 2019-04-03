@@ -5,8 +5,8 @@ defined('_JEXEC') or die;
 class PlgSystemTemplateCompanionInstallerScript
 {
 	/**
-		@var		$db		JDatabase
-	*/
+	 *	@var		$db		JDatabase
+	 */
 	public $db              = null;
 
 	/**
