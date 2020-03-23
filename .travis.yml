@@ -5,11 +5,12 @@ php:
 - '7.1'
 - '7.2'
 - '7.3'
+- '7.4'
 - nightly
 env:
-  matrix:
+  jobs:
   - DB=mysql
-matrix:
+jobs:
   allow_failures:
   - php: nightly
 before_script:
@@ -25,9 +26,9 @@ before_deploy:
 - zip -r plg_system_templatecompanion.zip plg_system_templatecompanion/src -x \*.git\* *.gitattributes*
 deploy:
   provider: releases
+  edge: true
   file:
   - plg_system_templatecompanion.zip
-  skip_cleanup: true
   on:
     tags: true
   api_key: $GITHUB_TOKEN
