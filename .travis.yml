@@ -20,9 +20,9 @@ before_script:
 script:
 - plg_system_templatecompanion/vendor/bin/phpunit --configuration plg_system_templatecompanion/travisci-phpunit.xml --include-path ./plg_system_templatecompanion/vendor/bin/phpunit
 after_script:
-- cd plg_system_templatecompanion/
-- php vendor/bin/codacycoverage clover tmp/coverage.xml
+- bash <(curl -s https://codecov.io/bash)
 before_deploy:
+- cd plg_system_templatecompanion/
 - zip -r plg_system_templatecompanion.zip plg_system_templatecompanion/src -x \*.git\* *.gitattributes*
 deploy:
   provider: releases
