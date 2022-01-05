@@ -17,4 +17,38 @@
 		<targetplatform name="joomla" version="3.[456789]"/>
 		<client>0</client>
 	</update>
+	<update>
+		<name>Template Companion (Plugin)</name>
+		<description>Template Companion (Plugin)</description>
+		<element>templatecompanion</element>
+		<type>plugin</type>
+		<folder>system</folder>
+		<version>1.0.1</version>
+		<infourl title="Less Template Companion (Plugin)">https://github.com/Gileba/plg_system_templatecompanion/releases/tag/1.0.1</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/Gileba/plg_system_templatecompanion/releases/download/1.0.1/plg_system_templatecompanion.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<targetplatform name="joomla" version="3.[789]"/>
+		<client>0</client>
+	</update>
+	<update>
+		<name>Template Companion (Plugin)</name>
+		<description>Template Companion (Plugin)</description>
+		<element>templatecompanion</element>
+		<type>plugin</type>
+		<folder>system</folder>
+		<version>1.0.1</version>
+		<infourl title="Less Template Companion (Plugin)">https://github.com/Gileba/plg_system_templatecompanion/releases/tag/1.0.1</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/Gileba/plg_system_templatecompanion/releases/download/1.0.1/plg_system_templatecompanion.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<targetplatform name="joomla" version="3.10"/>
+		<client>0</client>
+	</update>
 </updates>
