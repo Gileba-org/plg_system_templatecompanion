@@ -55,8 +55,8 @@ class PlgSystemTemplateCompanion extends JPlugin
 		parent::__construct($subject, $config);
 
 		$client = $this->app->isClient("site") ? JPATH_SITE : JPATH_ADMINISTRATOR;
-		$this->templatePath =
-			$client .
+		$this->templatePath
+			= $client .
 			DIRECTORY_SEPARATOR .
 			"templates" .
 			DIRECTORY_SEPARATOR .
@@ -73,8 +73,8 @@ class PlgSystemTemplateCompanion extends JPlugin
 		$tmpPath = $config->get("tmp_path");
 
 		//load chached file
-		$this->cacheFile =
-			$tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . "_" . basename($this->lessFile) . ".cache";
+		$this->cacheFile
+			= $tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . "_" . basename($this->lessFile) . ".cache";
 	}
 
 	/**
@@ -91,9 +91,8 @@ class PlgSystemTemplateCompanion extends JPlugin
 		//check if .less file exists and is readable
 		if (is_readable($this->lessFile)) {
 			// Check run conditions
-			if (
-				($this->app->isClient("site") && $mode === "1") ||
-				($this->app->isClient("administrator") && $mode === "0")
+			if (($this->app->isClient("site") && $mode === "1")
+				|| ($this->app->isClient("administrator") && $mode === "0")
 			) {
 				// Return value is only used for unit testing
 				return "wrong mode";
@@ -250,7 +249,7 @@ class PlgSystemTemplateCompanion extends JPlugin
 	 */
 	private function setLessVariables($params)
 	{
-		$lessParams = [];
+		$lessParams = array();
 
 		// Sanitising params for LESS
 		foreach ($params as $key => $value) {
