@@ -10,7 +10,7 @@
  */
 
 // no direct access
-defined('_JEXEC') or die();
+defined("_JEXEC") or die();
 
 /**
  * Plugin checks and compiles updated .less files on page load and on template style save.
@@ -29,19 +29,19 @@ class PlgSystemTemplateCompanion extends JPlugin
 	/**
 	 * @var	$lessFile			Origin file
 	 */
-	protected $lessFile		= '';
+	protected $lessFile = "";
 	/**
 	 * @var	$cssFile				Destination file
 	 */
-	protected $cssFile		= '';
+	protected $cssFile = "";
 	/**
 	 * @var	$cacheFile			Cache file to check for differences
 	 */
-	protected $cacheFile		= '';
+	protected $cacheFile = "";
 	/**
 	 * @var	$templatePath		Path of the template
 	 */
-	protected $templatePath	= '';
+	protected $templatePath = "";
 
 	/**
 	 * override constructor to load classes as soon as possible
@@ -54,20 +54,27 @@ class PlgSystemTemplateCompanion extends JPlugin
 		// trigger parent constructor first so params get set
 		parent::__construct($subject, $config);
 
-		$client = $this->app->isClient('site') ? JPATH_SITE : JPATH_ADMINISTRATOR;
-		$this->templatePath	= $client . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . $this->app->getTemplate() . DIRECTORY_SEPARATOR;
+		$client = $this->app->isClient("site") ? JPATH_SITE : JPATH_ADMINISTRATOR;
+		$this->templatePath =
+			$client .
+			DIRECTORY_SEPARATOR .
+			"templates" .
+			DIRECTORY_SEPARATOR .
+			$this->app->getTemplate() .
+			DIRECTORY_SEPARATOR;
 
-		$this->lessFile		= $this->templatePath . 'less/template.less';
-		$this->cssFile		= $this->templatePath . 'css/template.css';
+		$this->lessFile = $this->templatePath . "less/template.less";
+		$this->cssFile = $this->templatePath . "css/template.css";
 
 		// load config file
 		$config = JFactory::getConfig();
 
 		//path to temp folder
-		$tmpPath = $config->get('tmp_path');
+		$tmpPath = $config->get("tmp_path");
 
 		//load chached file
-		$this->cacheFile = $tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . '_' . basename($this->lessFile) . '.cache';
+		$this->cacheFile =
+			$tmpPath . DIRECTORY_SEPARATOR . $this->app->getTemplate() . "_" . basename($this->lessFile) . ".cache";
 	}
 
 	/**
@@ -78,37 +85,35 @@ class PlgSystemTemplateCompanion extends JPlugin
 		// 0 = frontend only
 		// 1 = backend only
 		// 2 = front + backend
-		$mode 		= $this->params->get('mode', 0);
-		$table		= $this->app->getTemplate(true);
+		$mode = $this->params->get("mode", 0);
+		$table = $this->app->getTemplate(true);
 
 		//check if .less file exists and is readable
-		if (is_readable($this->lessFile))
-		{
+		if (is_readable($this->lessFile)) {
 			// Check run conditions
-			if (($this->app->isSite() && $mode === '1') || ($this->app->isAdmin() && $mode === '0'))
-			{
+			if (
+				($this->app->isClient("site") && $mode === "1") ||
+				($this->app->isClient("administrator") && $mode === "0")
+			) {
 				// Return value is only used for unit testing
-				return 'wrong mode';
+				return "wrong mode";
 			}
 
-			try
-			{
-				$this->compileLess($table, $this->params->get('less_force'));
+			try {
+				$this->compileLess($table, $this->params->get("less_force"));
 
 				// Return value is only used for unit testing
 				return true;
-			}
-			catch (Exception $e)
-			{
-				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
+			} catch (Exception $e) {
+				$this->app->enqueueMessage("lessphp error: " . $e->getMessage(), "warning");
 
 				// Return value is only used for unit testing
-				return 'error';
+				return "error";
 			}
 		}
 
 		// Return value is only used for unit testing
-		return 'unreadable';
+		return "unreadable";
 	}
 
 	/**
@@ -124,44 +129,38 @@ class PlgSystemTemplateCompanion extends JPlugin
 	 */
 	public function onExtensionAfterSave($context, $table, $isNew)
 	{
-		if ($context != 'com_templates.style' && $context != 'com_advancedtemplates.style')
-		{
+		if ($context != "com_templates.style" && $context != "com_advancedtemplates.style") {
 			// Return value is only used for unit testing
-			return 'wrong context';
+			return "wrong context";
 		}
 
-		if (!(is_object($table->params))) {
+		if (!is_object($table->params)) {
 			$table->params = $this->paramsToObject($table->params);
 		}
 
 		// Only proceed if the template wants to specify less variables
-		if (!$table->params->get('useLESS'))
-		{
+		if (!$table->params->get("useLESS")) {
 			// Return value is only used for unit testing
-			return 'useLESS not implemented';
+			return "useLESS not implemented";
 		}
 
 		// Check if .less file exists and is readable
-		if (is_readable($this->lessFile))
-		{
-			try
-			{
+		if (is_readable($this->lessFile)) {
+			try {
 				$this->compileLess($table, true);
 
 				// Return value is only used for unit testing
 				return true;
-			}
-			catch (Exception $e)
-			{
-				$this->app->enqueueMessage('lessphp error: ' . $e->getMessage(), 'warning');
+			} catch (Exception $e) {
+				$this->app->enqueueMessage("lessphp error: " . $e->getMessage(), "warning");
 
 				// Return value is only used for unit testing
-				return 'lessphp error';
+				return "lessphp error";
 			}
 		}
 
 		// Return value is only used for unit testing
-		return 'unreadable';
+		return "unreadable";
 	}
 
 	/**
@@ -178,31 +177,30 @@ class PlgSystemTemplateCompanion extends JPlugin
 		$cache = $this->getCache();
 
 		// Instantiate new JLess compiler
-		$less = new JLess;
+		$less = new JLess();
 
 		// Preserve comments
-		$less->setPreserveComments($this->params->get('less_comments'));
+		$less->setPreserveComments($this->params->get("less_comments"));
 
 		// Formatter
-		switch ($this->params->get('less_compress')) {
-			case 'Joomla':
-				$formatter = new JLessFormatterJoomla;
+		switch ($this->params->get("less_compress")) {
+			case "Joomla":
+				$formatter = new JLessFormatterJoomla();
 				$less->setFormatter($formatter);
 			default:
-				$less->setFormatter($this->params->get('less_formatter'));
+				$less->setFormatter($this->params->get("less_formatter"));
 		}
 
 		$less->setVariables($this->setLessVariables($table->params->toArray()));
 
-		$less->addImportDir($this->templatePath . '/less');
+		$less->addImportDir($this->templatePath . "/less");
 
 		//compile cache file
 		$newCache = $less->cachedCompile($cache, $force);
 
-		if (!is_array($cache) || $newCache['updated'] > $cache['updated'] || !file_exists($this->cssFile))
-		{
+		if (!is_array($cache) || $newCache["updated"] > $cache["updated"] || !file_exists($this->cssFile)) {
 			JFile::write($this->cacheFile, serialize($newCache));
-			JFile::write($this->cssFile, $newCache['compiled']);
+			JFile::write($this->cssFile, $newCache["compiled"]);
 		}
 	}
 
@@ -217,9 +215,8 @@ class PlgSystemTemplateCompanion extends JPlugin
 	 */
 	private function paramsToObject($params)
 	{
-		if (is_string($params))
-		{
-			$registry = new \Joomla\Registry\Registry;
+		if (is_string($params)) {
+			$registry = new \Joomla\Registry\Registry();
 			$registry->loadString($params);
 			$params = $registry;
 		}
@@ -229,11 +226,9 @@ class PlgSystemTemplateCompanion extends JPlugin
 
 	private function getCache()
 	{
-		if (file_exists($this->cacheFile))
-		{
+		if (file_exists($this->cacheFile)) {
 			$tmpCache = unserialize(file_get_contents($this->cacheFile));
-			if ($tmpCache['root'] === $this->lessFile)
-			{
+			if ($tmpCache["root"] === $this->lessFile) {
 				$cache = $tmpCache;
 				return $cache;
 			}
@@ -255,25 +250,22 @@ class PlgSystemTemplateCompanion extends JPlugin
 	 */
 	private function setLessVariables($params)
 	{
-		$lessParams = array();
+		$lessParams = [];
 
 		// Sanitising params for LESS
-		foreach ($params as $key => $value)
-		{
+		foreach ($params as $key => $value) {
 			// Select useful params
 			if (substr($key, 0, 3) === "tc_") {
 				// Trim whitespaces
 				$value = trim($value);
 
 				// Adding quotes around variable so it's threaten as string if a slash is in it.
-				if (strpos($value, '/') !== false)
-				{
+				if (strpos($value, "/") !== false) {
 					$value = '"' . $value . '"';
 				}
 
 				// Quoting empty values as they break the compiler
-				if ($value == '')
-				{
+				if ($value == "") {
 					$value = '""';
 				}
 
