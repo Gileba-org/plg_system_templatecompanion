@@ -293,10 +293,8 @@ class PlgSystemTemplateCompanion extends JPlugin
 			switch ($client) {
 				case "site":
 					return $this->app->isSite();
-					break;
 				case "administrator":
 					return $this->app->isAdmin();
-					break;
 				default:
 					return false;
 			}
