@@ -1,11 +1,5 @@
 # Template Companion
 ##### A Joomla 3 Plugin
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6ec183dc0cc24de5bbadf081863e4a60)](https://www.codacy.com/app/Gileba/plg_system_templatecompanion?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Gileba/plg_system_templatecompanion&amp;utm_campaign=Badge_Grade)
-[![Build Status](https://travis-ci.org/Gileba/plg_system_templatecompanion.svg?branch=master)](https://travis-ci.org/Gileba/plg_system_templatecompanion)
-[![CLA assistant](https://cla-assistant.io/readme/badge/Gileba/plg_system_templatecompanion)](https://cla-assistant.io/Gileba/plg_system_templatecompanion)
-[![SemVer](http://img.shields.io/SemVer/2.0.0.png)](http://semver.org/spec/v2.0.0.html)
-
----
 
 ## Installation
 1. Download the plugin from the [release section](https://github.com/Gileba/plg_system_templatecompanion/releases)
