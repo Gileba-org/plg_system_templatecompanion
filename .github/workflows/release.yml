@@ -1,0 +1,21 @@
+name: Release zipped package
+
+on:
+  release:
+    types: [published]
+
+workflow_dispatch:
+
+jobs:
+  zip-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: papeloto/action-zip@v1
+        with:
+          concurrency: src/
+          dest: result.zip
+      - uses: actions/upload-artifact@v1
+        with:
+          name: my-artifact
+          path: ${{ github.workspace }}/result.zip
