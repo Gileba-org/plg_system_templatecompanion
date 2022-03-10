@@ -22,7 +22,7 @@ jobs:
         with:
           files: plg_system_templatecompanion.zip
       - name: Deploy update server
-        uses: kevinpainchaud/simple-ftp-deploy-action@latest
+        uses: kevinpainchaud/simple-ftp-deploy-action@v1.2.1
         with:
           ftp_host: ${{ secrets.FTP_HOST }}
           ftp_username: ${{ secrets.FTP_USERNAME }}
