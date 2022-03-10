@@ -140,7 +140,7 @@ class PlgSystemTemplateCompanionTest extends TestCaseDatabase
 		$this->assertEquals('unreadable', $this->class->onBeforeRender());
 
 		/*
-		 * TODO
+		 * Future development
 		 *  1. Make sure test does get access to a less file
 		 *  2. Switch modes and check versus client/admin
 		 *  3. Check if CompileLess succeeds
