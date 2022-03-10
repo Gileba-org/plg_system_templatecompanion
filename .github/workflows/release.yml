@@ -1,0 +1,32 @@
+name: Release zipped package
+
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+
+jobs:
+  zip-files:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Zip source
+        uses: papeloto/action-zip@v1
+        with:
+          files: src/
+          dest: plg_system_templatecompanion.zip
+      - name: Create release with zip-file
+        uses: softprops/action-gh-release@v1
+        with:
+          files: plg_system_templatecompanion.zip
+      - name: Deploy update server
+        uses: kevinpainchaud/simple-ftp-deploy-action@latest
+        with:
+          ftp_host: ${{ secrets.FTP_HOST }}
+          ftp_username: ${{ secrets.FTP_USERNAME }}
+          ftp_password: ${{ secrets.FTP_PASSWORD }}
+          local_source_dir: "update-server"
+          dist_target_dir: "www/updates"
+          delete: "false"
