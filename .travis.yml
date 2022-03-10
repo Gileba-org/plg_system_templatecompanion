@@ -4,11 +4,13 @@ php:
 - '7.0'
 - '7.1'
 - '7.2'
+- '7.3'
+- '7.4'
 - nightly
 env:
-  matrix:
+  jobs:
   - DB=mysql
-matrix:
+jobs:
   allow_failures:
   - php: nightly
 before_script:
@@ -18,15 +20,15 @@ before_script:
 script:
 - plg_system_templatecompanion/vendor/bin/phpunit --configuration plg_system_templatecompanion/travisci-phpunit.xml --include-path ./plg_system_templatecompanion/vendor/bin/phpunit
 after_script:
-- cd plg_system_templatecompanion/
-- php vendor/bin/codacycoverage clover tmp/coverage.xml
+- bash <(curl -s https://codecov.io/bash)
 before_deploy:
+- cd plg_system_templatecompanion/
 - zip -r plg_system_templatecompanion.zip plg_system_templatecompanion/src -x \*.git\* *.gitattributes*
 deploy:
   provider: releases
+  edge: true
   file:
   - plg_system_templatecompanion.zip
-  skip_cleanup: true
   on:
     tags: true
   api_key: $GITHUB_TOKEN
