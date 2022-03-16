@@ -3,7 +3,7 @@
  * @package		System Plugin - Template Companion, an automatic Less compiler for developers and users
  * @version		1.0.0
  * @author		Gijs Lamon
- * @copyright	(C) 2017-2018 Gijs Lamon
+ * @copyright	(C) 2017-2019 Gijs Lamon
  * @license		GNU/GPLv3 http://www.gnu.org/licenses/gpl-3.0.html
  *
  * Based on the works of Andreas Tasch (https://github.com/ndeet/plg_system_less) and Thomas Hunziker (https://github.com/Bakual/Allrounder)
@@ -285,7 +285,8 @@ class PlgSystemTemplateCompanion extends JPlugin
 	 */
 	private function isClient($client) {
 		$version = new JVersion();
-		if ($version->isCompatible("3.7.0")) {
+
+    if ($version->isCompatible("3.7.0")) {
 			return $this->app->isClient($client);
 		}
 		else {
