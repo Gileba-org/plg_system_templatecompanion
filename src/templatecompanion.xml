@@ -59,7 +59,6 @@
 					default="compressed"
 				>
 					<option value="compressed">PLG_SYSTEM_TEMPLATECOMPANION_COMPRESSED</option>
-					<option value="joomla">PLG_SYSTEM_TEMPLATECOMPANION_JOOMLA</option>
 					<option value="lessjs">PLG_SYSTEM_TEMPLATECOMPANION_LESSJS</option>
 					<option value="classic">PLG_SYSTEM_TEMPLATECOMPANION_CLASSIC</option>
 				</field>
