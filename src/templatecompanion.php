@@ -178,17 +178,8 @@ class PlgSystemTemplateCompanion extends JPlugin
 		// Instantiate new lessc compiler
 		$less = new lessc();
 
-		// Preserve comments
-		$less->setPreserveComments($this->params->get("less_comments"));
-
 		// Formatter
-		switch ($this->params->get("less_compress")) {
-			case "Joomla":
-				$formatter = new JLessFormatterJoomla();
-				$less->setFormatter($formatter);
-			default:
-				$less->setFormatter($this->params->get("less_formatter"));
-		}
+		$less->setFormatter($this->params->get("less_formatter"));
 
 		$less->setVariables($this->setLessVariables($table->params->toArray()));
 
