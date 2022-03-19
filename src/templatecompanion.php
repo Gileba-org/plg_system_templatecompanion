@@ -12,13 +12,12 @@
 // no direct access
 defined("_JEXEC") or die();
 
+// Load external libraries
+require_once('lessc.inc.php');
+
 /**
  * Plugin checks and compiles updated .less files on page load and on template style save.
  * Give your users the ability to set variables as template parameter and removing the need to manually compile .less files ever again.
- *
- * JLess compiler uses lessphp; see http://leafo.net/lessphp/
- *
- * @since  1.0
  */
 class PlgSystemTemplateCompanion extends JPlugin
 {
@@ -176,20 +175,11 @@ class PlgSystemTemplateCompanion extends JPlugin
 	{
 		$cache = $this->getCache();
 
-		// Instantiate new JLess compiler
-		$less = new JLess();
-
-		// Preserve comments
-		$less->setPreserveComments($this->params->get("less_comments"));
+		// Instantiate new lessc compiler
+		$less = new lessc();
 
 		// Formatter
-		switch ($this->params->get("less_compress")) {
-			case "Joomla":
-				$formatter = new JLessFormatterJoomla();
-				$less->setFormatter($formatter);
-			default:
-				$less->setFormatter($this->params->get("less_formatter"));
-		}
+		$less->setFormatter($this->params->get("less_formatter"));
 
 		$less->setVariables($this->setLessVariables($table->params->toArray()));
 
@@ -285,8 +275,9 @@ class PlgSystemTemplateCompanion extends JPlugin
 	 * @return 				Boolean
 	 */
 	private function isClient($client) {
-		$version = new jVersion();
-		if ($version->isCompatible("3.7.0")) {
+		$version = new JVersion();
+
+    if ($version->isCompatible("3.7.0")) {
 			return $this->app->isClient($client);
 		}
 		else {
