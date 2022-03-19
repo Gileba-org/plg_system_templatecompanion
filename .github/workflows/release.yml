@@ -3,8 +3,7 @@ name: Release zipped package
 on:
   push:
     tags:
-      - "v*.*.*"
-  workflow_dispatch:
+      - "*.*.*"
 
 jobs:
   zip-files:
