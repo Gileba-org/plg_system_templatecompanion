@@ -7,8 +7,14 @@
 
 ---
 
-## Minimum Requirements
-+ Joomla 3 (minor versions 4 and up) _(This plugin uses the JLess-class in Joomla, which was added in version 3.4 and is marked to be removed from Joomla 4)_
+## Minimum Requirements (v1.0.1)
++ Joomla 3 (minor versions 4 and up) _(This plugin uses the JLess-class in Joomla, which was added in version 3.4 and has been removed from Joomla 4)_
++ A compatible template
+
+---
+
+## Minimum Requirements (v2.0.0)
++ Joomla 3.10 or Joomla 4
 + A compatible template
 
 ---
@@ -24,11 +30,11 @@ This plugin compiles .less-files into a site specific .css-file on three occasio
 ## Options
 #### Force compilation
 When turned on, every page load will trigger a new compilation. It is recommended to only activate this option when developing a new template.
-#### Preserve comments
+#### Preserve comments (removed in version 2)
 When turned on, comments made in the source files (Less) will be transferred to the destination file (CSS).
 #### Format
   + Compressed: Compresses the .css output for minimal load time and file size
-  + Joomla: The standard Joomla formatter
+  + Joomla: The standard Joomla formatter (removed in version 2)
   + Less JS: Same style used in LESS for JavaScript
   + Classic: Lessphp’s original formatter
 
