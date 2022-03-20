@@ -6,15 +6,49 @@
 		<element>templatecompanion</element>
 		<type>plugin</type>
 		<folder>system</folder>
-		<version>2.0.0</version>
-		<infourl title="Template Companion (Plugin)">https://github.com/Gileba-org/plg_system_templatecompanion/releases/tag/2.0.0</infourl>
+		<version>1.0.1</version>
+		<infourl title="Template Companion (Plugin)">https://github.com/Gileba-org/plg_system_templatecompanion/releases/tag/v1.0.1</infourl>
 		<downloads>
-			<downloadurl type="full" format="zip">https://github.com/Gileba-org/plg_system_templatecompanion/releases/download/2.0.0/plg_system_templatecompanion.zip</downloadurl>
+			<downloadurl type="full" format="zip">https://github.com/Gileba-org/plg_system_templatecompanion/releases/download/v1.0.1/plg_system_templatecompanion.zip</downloadurl>
 		</downloads>
 		<tags>
 			<tag>stable</tag>
 		</tags>
 		<targetplatform name="joomla" version="3.[456789]|10"/>
+		<client>0</client>
+	</update>
+	<update>
+		<name>Template Companion (Plugin)</name>
+		<description>Template Companion (Plugin)</description>
+		<element>templatecompanion</element>
+		<type>plugin</type>
+		<folder>system</folder>
+		<version>2.0.0</version>
+		<infourl title="Template Companion (Plugin)">https://github.com/Gileba-org/plg_system_templatecompanion/releases/tag/v2.0.0</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/Gileba-org/plg_system_templatecompanion/releases/download/v2.0.0/plg_system_templatecompanion.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<targetplatform name="joomla" version="3.10"/>
+		<client>0</client>
+	</update>
+	<update>
+		<name>Template Companion (Plugin)</name>
+		<description>Template Companion (Plugin)</description>
+		<element>templatecompanion</element>
+		<type>plugin</type>
+		<folder>system</folder>
+		<version>2.0.0</version>
+		<infourl title="Template Companion (Plugin)">https://github.com/Gileba-org/plg_system_templatecompanion/releases/tag/v2.0.0</infourl>
+		<downloads>
+			<downloadurl type="full" format="zip">https://github.com/Gileba-org/plg_system_templatecompanion/releases/download/v2.0.0/plg_system_templatecompanion.zip</downloadurl>
+		</downloads>
+		<tags>
+			<tag>stable</tag>
+		</tags>
+		<targetplatform name="joomla" version="4.[01]"/>
 		<client>0</client>
 	</update>
 </updates>
