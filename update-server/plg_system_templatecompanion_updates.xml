@@ -48,7 +48,7 @@
 		<tags>
 			<tag>stable</tag>
 		</tags>
-		<targetplatform name="joomla" version="4.[01]"/>
+		<targetplatform name="joomla" version="4"/>
 		<client>0</client>
 	</update>
 </updates>
