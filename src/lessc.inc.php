@@ -230,7 +230,7 @@ class lessc {
 				}
 			}
 		} else {
-			// Throw an exception? We got neither a string nor something
+			// TODO: Throw an exception? We got neither a string nor something
 			// that looks like a compatible lessphp cache structure.
 			return null;
 		}
