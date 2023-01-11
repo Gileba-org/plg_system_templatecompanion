@@ -8,7 +8,7 @@
 	<license>GNU General Public License v3; see	LICENSE</license>
 	<authorEmail>info@gileba.be</authorEmail>
 	<authorUrl>www.gileba.be</authorUrl>
-	<version>2.0.1</version>
+	<version>2.1.0</version>
 	<description>Less plugin to compile changed .less files to .css files automatically and includes variables from template.</description>
 	<languages folder="language">
 		<language tag="en-GB">en-GB/en-GB.plg_system_templatecompanion.ini</language>

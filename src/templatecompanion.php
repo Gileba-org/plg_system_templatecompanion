@@ -53,7 +53,7 @@ class PlgSystemTemplateCompanion extends JPlugin
 		// trigger parent constructor first so params get set
 		parent::__construct($subject, $config);
 
-		$client = $this->isClient("site") ? JPATH_SITE : JPATH_ADMINISTRATOR;
+		$client = $this->app->isClient("site") ? JPATH_SITE : JPATH_ADMINISTRATOR;
 
 		$this->templatePath
 			= $client .
@@ -91,8 +91,8 @@ class PlgSystemTemplateCompanion extends JPlugin
 		//check if .less file exists and is readable
 		if (is_readable($this->lessFile)) {
 			// Check run conditions
-			if (($this->isClient("site") && $mode === "1")
-				|| ($this->isClient("administrator") && $mode === "0")
+			if (($this->app->isClient("site") && $mode === "1")
+				|| ($this->app->isClient("administrator") && $mode === "0")
 			) {
 				// Return value is only used for unit testing
 				return "wrong mode";
@@ -267,30 +267,4 @@ class PlgSystemTemplateCompanion extends JPlugin
 		return $lessParams;
 	}
 
-	/**
-	 * Check whether we are called in front- or backoffice (compatible with J3 & J4 method as needed)
-	 *
-	 * @deprecated			Will be removed once we move to a J4-only version
-	 *
-	 * @return 				Boolean
-	 *
-	 * @since 				1.0.1
-	 */
-	private function isClient($client) {
-		$version = new JVersion();
-
-    if ($version->isCompatible("3.7.0")) {
-			return $this->app->isClient($client);
-		}
-		else {
-			switch ($client) {
-				case "site":
-					return $this->app->isSite();
-				case "administrator":
-					return $this->app->isAdmin();
-				default:
-					return false;
-			}
-		}
-	}
 }
